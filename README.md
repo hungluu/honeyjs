@@ -3,9 +3,9 @@ An open source Javascript Honey Pot implementation
 
 ## How to use
 
-This library make honey pot implementation so easy
+This library makes honey pot implementation so easy
 
-The simplest way
+The simple way
 
 ```javascript
 var form = document.getElementById('secured');
@@ -25,7 +25,7 @@ Honey.only([form3, form4]);
 
 ## Configuration
 
-You will need to get an instance of Honey.Pot to configure over this single object
+You will need to get an instance of Honey.Pot to configure over this object
 
 ```javascript
 var pot = Honey.secure(form);
