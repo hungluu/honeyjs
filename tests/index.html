@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>TEST HoneyJS WITH QUnit 1.9.0</title>
+	<link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-1.19.0.css">
+</head>
+<body>
+
+<form action="./index.html" method="GET" id="1">
+	<fieldset>
+		<legend>Form #1</legend>
+		<input type="text" name="email">
+		<input type="password" name="password">
+		<button type="submit">SUBMIT</button>
+	</fieldset>
+</form>
+
+<form action="./a.html" method="GET">
+	<fieldset>
+		<legend>Form #2</legend>
+		<input type="text" name="email">
+		<input type="password" name="password">
+		<button type="submit">SUBMIT</button>
+	</fieldset>
+</form>
+
+<form action="./b.html" method="GET">
+	<fieldset>
+		<legend>Form #3</legend>
+		<input type="text" name="email">
+		<input type="password" name="password">
+		<button type="submit">SUBMIT</button>
+	</fieldset>
+</form>
+
+<form action="./index.html" method="GET" id="not-secured">
+	<fieldset>
+		<legend>Not Secured Form</legend>
+		<input type="text" name="email">
+		<input type="password" name="password">
+		<button type="submit">SUBMIT</button>
+	</fieldset>
+</form>
+
+<br/>
+<div id="qunit"></div>
+<div id="qunit-fixture"></div>
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="../honey-1.0.min.js"></script>
+<script src="http://code.jquery.com/qunit/qunit-1.19.0.js"></script>
+<script src="tests.js"></script>
+</body>
+</html>
