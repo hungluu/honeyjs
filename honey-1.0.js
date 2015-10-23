@@ -4,7 +4,7 @@
 |--------------------------------------------------------------------------
 |
 | @version : 1.0
-| @author  : Zudd (zudd.net)
+| @author  : Zudd
 | @url     : https://github.com/zudd/honeyjs,
 | @copyright : Hung Luu 2015
 | @license : MIT license
