@@ -2,44 +2,51 @@
 	$(document).ready(function(){
 		var form = Honey.id("1");
 
-		var honeyPot1 = Honey.secure(form);
+		var pot1 = Honey.secure(form);
 
-		var honeyPots = Honey.except([form, Honey.id("not-secured")]);
+		var pots = Honey.except([form, Honey.id("not-secured")]);
 
 		if(typeof QUnit !== "undefined"){
-			QUnit.test("Install honey pot on Form #1", function(assert){
+			QUnit.test("Test installing honey pot on Form #1", function(assert){
 				var form = $("#1"),
 					searchMainInput = form.children("input[name=name]"),
 					searchTimeInput = form.children("input[name=_time]");
 				assert.ok(searchMainInput.length > 0, "set honeyPot main input");
 				assert.ok(searchTimeInput.length > 0, "set honeyPot time input");
-				assert.ok(honeyPot1.time(), "set honeyPot starting time is " + honeyPot1.createTime);
+				assert.ok(pot1.time(), "set honeyPot starting time is " + pot1.createTime);
 				assert.notOk(searchMainInput.is(":visible") || searchTimeInput.is(":visible"), "check inputs' visibility");
 			});
 
 			QUnit.test("Test submit function on Form #1", function(assert){
-				var form = $("#1"),
-					searchMainInput = form.children("input[name=name]"),
-					searchTimeInput = form.children("input[name=_time]");
-				// try to change main input's value
-				assert.ok(!honeyPot1.toofast(Honey.now()) && honeyPot1.submit(), "No bots detected. Submit function is okay");
-				searchMainInput[0].value = 'haha';
-				assert.notOk(honeyPot1.submit(), "Simulate bot auto-filling. Done preventing auto-filling bot");
+				assert.ok(!pot1.toofast(Honey.now()) && pot1.submit(), "No bots detected. Submit function is okay");
 			});
 
+			QUnit.test("Test preventing auto-filling bot on Form #1", function(assert){
+				var form = $("#1"),
+					searchMainInput = form.children("input[name=name]");
+				// try to change main input's value
+				searchMainInput[0].value = 'haha';
+				assert.notOk(pot1.submit(), "Simulate bot auto-filling. Done preventing auto-filling bot");
+			});
+
+			QUnit.test("Test setting minimum acceptable amount of time for completing Form #1", function(assert){
+				pot1.time(10 * 60); // set minimum time to 10 minutes
+				assert.ok(pot1.toofast(Honey.now()), "Try setting minimum time to 10 minutes, form submitting disabled.");
+			})
+
 			QUnit.test("Test honey pots on other forms when use global secure function", function(assert){
-				for(var i = 0, length = honeyPots.length; i < length; i++){
-					var form = $(honeyPots[i].form),
+				for(var i = 0, length = pots.length; i < length; i++){
+					var form = $(pots[i].form),
 						identifier = " on Form #" + (i + 2),
 						searchMainInput = form.children("input[name=name]"),
 						searchTimeInput = form.children("input[name=_time]");
 					assert.ok(searchMainInput.length > 0, "set honeyPot main input" + identifier);
 					assert.ok(searchTimeInput.length > 0, "set honeyPot time input" + identifier);
-					assert.ok(honeyPots[i].createTime, "set honeyPot" + identifier + " starting time is " + honeyPots[i].createTime);
+					assert.ok(pots[i].createTime, "set honeyPot" + identifier + " starting time is " + pots[i].createTime);
 					assert.notOk(searchMainInput.is(":visible") || searchTimeInput.is(":visible"), "check inputs' visibility" + identifier);
 					// try to change main input's value
 					searchMainInput[0].value = 'haha';
-					assert.notOk(honeyPots[i].submit(), "Simulate bot auto-filling. Done preventing auto-filling bot" + identifier);
+					assert.notOk(pots[i].submit(), "Simulate bot auto-filling. Done preventing auto-filling bot" + identifier);
 				}
 			});
 		}

@@ -32,6 +32,15 @@ var Honey = {
 	now : function(){
 		return (new Date()).getTime()
 	},
+	// a dummy function to detect integer for config time(seconds)
+	isInt : function(value){
+		var x;
+		if (isNaN(value)) {
+			return false;
+		}
+		x = parseFloat(value);
+		return (x | 0) === x;
+	},
 	// a dummy function to find element's index inside array
 	// @return int
 	find : function(arr, needle){
@@ -195,7 +204,7 @@ Honey.Pot.prototype = {
 	// get or set acceptable time
 	// @param int time
 	time : function(time){
-		if(typeof name === 'int')
+		if(Honey.isInt(time))
 			this.acceptableTime = time;
 
 		return this.acceptableTime
@@ -203,6 +212,6 @@ Honey.Pot.prototype = {
 	// not acceptable timing
 	// bot is too fast
 	toofast : function(now){
-		return now - this.createTime <= this.acceptableTime
+		return (now - this.createTime) <= this.acceptableTime
 	}
 }

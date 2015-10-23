@@ -1,0 +1,41 @@
+{
+  "name": "honeyjs",
+  "version": "1.0.0",
+  "description": "An open source Javascript Honey Pot implementation",
+  "main": "honey-1.0.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zudd/honeyjs.git"
+  },
+  "keywords": [
+    "javascript",
+    "honey",
+    "pot",
+    "avoid",
+    "spams",
+    "javascript",
+    "detect",
+    "bot",
+    "spamming",
+    "bot"
+  ],
+  "author": "Zudd (Hung Luu)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zudd/honeyjs/issues"
+  },
+  "homepage": "https://github.com/zudd/honeyjs#readme",
+  "engines": {
+    "node": ">=0.8"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.0",
+    "grunt-contrib-qunit": "~0.2.0"
+  }
+}
