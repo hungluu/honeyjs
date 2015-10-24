@@ -4,6 +4,12 @@ An open source Javascript Honey Pot implementation, release under MIT license.
 
 [![Build Status](https://travis-ci.org/zudd/HoneyJS.svg?branch=master)](https://travis-ci.org/zudd/HoneyJS) [![Code Climate](https://codeclimate.com/github/zudd/HoneyJS/badges/gpa.svg)](https://codeclimate.com/github/zudd/HoneyJS) [![Test Coverage](https://codeclimate.com/github/zudd/HoneyJS/badges/coverage.svg)](https://codeclimate.com/github/zudd/HoneyJS/coverage)
 
+HoneyJS now available on npm! Install :
+
+```
+npm install honeyjs
+```
+
 ## How to use
 
 This library makes honey pot implementation so easy with some lines of javascript code.

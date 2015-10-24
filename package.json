@@ -14,16 +14,17 @@
     "url": "git+https://github.com/zudd/honeyjs.git"
   },
   "keywords": [
+  	"HoneyJS",
     "javascript",
     "honey",
     "pot",
     "avoid",
     "spams",
-    "javascript",
     "detect",
     "bot",
     "spamming",
-    "bot"
+    "jQuery",
+    "plugin"
   ],
   "author": "Zudd (Hung Luu)",
   "license": "MIT",
