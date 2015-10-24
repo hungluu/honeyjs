@@ -1,6 +1,6 @@
 {
   "name": "honeyjs",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "An open source Javascript Honey Pot implementation",
   "main": "honey-1.0.js",
   "directories": {
@@ -14,7 +14,7 @@
     "url": "git+https://github.com/zudd/honeyjs.git"
   },
   "keywords": [
-  	"HoneyJS",
+    "HoneyJS",
     "javascript",
     "honey",
     "pot",
