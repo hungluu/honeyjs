@@ -51,7 +51,7 @@ pot.name('empty');
 
 ## jQuery
 
-HoneyJS also supports jQuery as well. HoneyJS jQuery plugin editon is fully integrated with jQuery functionality.
+HoneyJS also supports jQuery as well. HoneyJS jQuery plugin edition is fully integrated with jQuery functionality.
 
 You can use HoneyJS jQuery plugin like this
 
