@@ -3,7 +3,7 @@
 | An open source Javascript Honey Pot implementation
 |--------------------------------------------------------------------------
 |
-| @version : 1.0
+| @version : 1.0.2
 | @author  : Zudd
 | @url     : https://github.com/zudd/honeyjs,
 | @copyright : Hung Luu 2015
@@ -19,7 +19,7 @@
 */
 var Honey = {
 	// generate a new Honey Pot required input (hidden) field
-	// @return HTMLInputElement
+	// @return HTMLInputForm
 	generateInput : function(){
 		var newInput = document.createElement('input');
 		// hide new input
@@ -41,7 +41,7 @@ var Honey = {
 		x = parseFloat(value);
 		return (x | 0) === x;
 	},
-	// a dummy function to find element's index inside array
+	// a dummy function to find Form's index inside array
 	// @return int
 	find : function(arr, needle){
 		if(Array.prototype.indexOf){
@@ -56,20 +56,20 @@ var Honey = {
 			return -1
 		}
 	},
-	// a dummy function to check if an array contains an element
+	// a dummy function to check if an array contains an Form
 	// @return bool
 	contains : function(arr, needle){
 		return this.find(arr, needle) !== -1;
 	},
 	/* DUMMY DOM SELECTORS */
 	// a dummy function
-	// return element by id
-	// @return HTMLElement
+	// return Form by id
+	// @return HTMLForm
 	id : function(FormId){
-		return document.getElementById(FormId);
+		return document.getElementsById(FormId);
 	},
 	// a dummy function
-	// return elements by tag name
+	// return Forms by tag name
 	// @return array
 	tag : function(tagName){
 		return document.getElementsByTagName(tagName);
@@ -79,19 +79,19 @@ var Honey = {
 	| A Honey Pot for a form
 	|--------------------------------------------------------------------------
 	|
-	| @param : HTMLFormElement Form
+	| @param : HTMLFormForm Form
 	*/
 	Pot : function(Form){
 		/**
-		 * @var HTMLFormElement form
+		 * @var HTMLFormForm form
 		 *
 		 * current secured form
 		 */
 		this.form = Form;
 		/**
-		 * @var HTMLInputElement input
+		 * @var HTMLInputForm input
 		 *
-		 * An input element to prevent auto-filling bots
+		 * An input Form to prevent auto-filling bots
 		 * with default name is 'name'
 		 * *TO BE checked on server side lately ( optional - in case attacker has disabled javascript )
 		 */
@@ -99,7 +99,7 @@ var Honey = {
 		this.input.name = 'name';
 		this.form.appendChild(this.input);
 		/**
-		 * @var HTMLInputElement input
+		 * @var HTMLInputForm input
 		 *
 		 * an input with name '_time'
 		 * *TO BE checked on server side lately ( optional - in case attacker has disabled javascript )
@@ -115,9 +115,30 @@ var Honey = {
 		this.createTime = Honey.now();
 		// install submit functionality
 		var that = this;
-		this.form.onsubmit = function(){
-			return that.submit()
-		}
+		if(Form.addEventListener)
+		    Form.addEventListener("submit", function(e){
+		    	if(that.submit())
+		    		return true;
+		    	e = e || window.event;
+		        e.cancelBubble = true;
+		        e.returnValue = false;
+		        if(e.preventDefault){
+		            e.preventDefault();
+		        }
+		        return false
+		    }, true);
+		else
+		    Form.attachEvent('onsubmit', function(e){
+		    	if(that.submit())
+		    		return true;
+		    	e = e || window.event;
+		        e.cancelBubble = true;
+		        e.returnValue = false;
+		        if(e.preventDefault){
+		            e.preventDefault();
+		        }
+		        return false
+		    });
 
 		/**
 		 * @var int
@@ -127,7 +148,7 @@ var Honey = {
 		this.acceptableTime = 5
 	},
 	// Honey Pot Factory : secure given form
-	// @param : HTMLFormElement Form
+	// @param : HTMLFormForm Form
 	// @return : Honey.Pot
 	secure : function(Form){
 		return new this.Pot(Form)
@@ -144,7 +165,7 @@ var Honey = {
 		return collection
 	},
 	// Automatically secure all included forms
-	// @param : Array included - a collection of included HTMLFormElement
+	// @param : Array included - a collection of included HTMLFormForm
 	// @return : array - a collection of Honey.Pot
 	only : function(included){
 		var searchForms = this.tag('form'),
@@ -161,7 +182,7 @@ var Honey = {
 		return collection
 	},
 	// Automatically secure all forms inside current document except excluded ones
-	// @param : optional Array excluded - a collection of excluded HTMLFormElement
+	// @param : optional Array excluded - a collection of excluded HTMLFormForm
 	// @return : array - a collection of Honey.Pot
 	except : function(excluded){
 		excluded = excluded || [];
@@ -186,13 +207,13 @@ var Honey = {
 | Honey Pot methods
 |--------------------------
 |
-| @param : HTMLFormElement Form
+| @param : HTMLFormForm Form
 */
 Honey.Pot.prototype = {
 	// allow form to be submitted or not
 	submit : function(){
 		var currentTime = Honey.now();
-		if(this.input.value === '' && !this.toofast(currentTime)) // no more than 5 seconds
+		if(this.input.value == '' && !this.toofast(currentTime)) // no more than 5 seconds
 		{
 			this.timeChecker.value = currentTime;
 			return true

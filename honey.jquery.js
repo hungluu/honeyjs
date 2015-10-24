@@ -3,7 +3,7 @@
 | An open source Javascript Honey Pot implementation - JQuery Plugin Edition
 |--------------------------------------------------------------------------
 |
-| @version : 1.0
+| @version : 1.0.2
 | @author  : Zudd
 | @url     : https://github.com/zudd/honeyjs,
 | @copyright : Hung Luu 2015
@@ -77,8 +77,11 @@ var Honey = {
 		this.createTime = $.now();
 		// install submit functionality
 		var that = this;
-		Form.submit(function(){
-			return that.submit()
+		Form.submit(function(e){
+			if(that.submit())
+				return true;
+			e.preventDefault();
+			return false
 		});
 
 		/**
