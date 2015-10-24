@@ -3,7 +3,7 @@
 | An open source Javascript Honey Pot implementation - JQuery Plugin Edition
 |--------------------------------------------------------------------------
 |
-| @version : 1.0.2
+| @version : 1.0.3
 | @author  : Zudd
 | @url     : https://github.com/zudd/honeyjs,
 | @copyright : Hung Luu 2015
