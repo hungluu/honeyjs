@@ -1,6 +1,6 @@
 /*
 |--------------------------------------------------------------------------
-| An open source Javascript Honey Pot implementation
+| An open source Javascript Honey Pot implementation - JQuery Plugin Edition
 |--------------------------------------------------------------------------
 |
 | @version : 1.0
@@ -17,21 +17,8 @@
 | OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 | SOFTWARE.
 */
+(function($) {
 var Honey = {
-	// generate a new Honey Pot required input (hidden) field
-	// @return HTMLInputElement
-	generateInput : function(){
-		var newInput = document.createElement('input');
-		// hide new input
-		newInput.style['display'] = 'none';
-		newInput.style['visibility'] = 'hidden';
-		return newInput
-	},
-	// get current timestamp
-	// @return int
-	now : function(){
-		return (new Date()).getTime()
-	},
 	// a dummy function to detect integer for config time(seconds)
 	isInt : function(value){
 		var x;
@@ -41,83 +28,58 @@ var Honey = {
 		x = parseFloat(value);
 		return (x | 0) === x;
 	},
-	// a dummy function to find element's index inside array
-	// @return int
-	find : function(arr, needle){
-		if(Array.prototype.indexOf){
-			return arr.indexOf(needle)
-		}
-		else{
-			for(var x = 0, length = arr.length; x < length; x++){
-				if(arr[x] === needle)
-					return x
-			}
-
-			return -1
-		}
-	},
-	// a dummy function to check if an array contains an element
-	// @return bool
-	contains : function(arr, needle){
-		return this.find(arr, needle) !== -1;
-	},
-	/* DUMMY DOM SELECTORS */
-	// a dummy function
-	// return element by id
-	// @return HTMLElement
-	id : function(FormId){
-		return document.getElementById(FormId);
-	},
-	// a dummy function
-	// return elements by tag name
-	// @return array
-	tag : function(tagName){
-		return document.getElementsByTagName(tagName);
-	},
 	/*
 	|--------------------------------------------------------------------------
 	| A Honey Pot for a form
 	|--------------------------------------------------------------------------
 	|
-	| @param : HTMLFormElement Form
+	| @param : jQuery Object Form
 	*/
 	Pot : function(Form){
 		/**
-		 * @var HTMLFormElement form
+		 * @var JQuery object
 		 *
-		 * current secured form
+		 * Current secured form
 		 */
 		this.form = Form;
 		/**
-		 * @var HTMLInputElement input
+		 * @var JQuery object
 		 *
 		 * An input element to prevent auto-filling bots
 		 * with default name is 'name'
 		 * *TO BE checked on server side lately ( optional - in case attacker has disabled javascript )
 		 */
-		this.input = Honey.generateInput();
-		this.input.name = 'name';
-		this.form.appendChild(this.input);
+		this.input = $('<input/>',{
+			name : 'name'
+		}).css({
+			display : 'none',
+			visibility : 'hidden'
+		});
+		Form.append(this.input);
 		/**
-		 * @var HTMLInputElement input
+		 * @var JQuery object
 		 *
 		 * an input with name '_time'
 		 * *TO BE checked on server side lately ( optional - in case attacker has disabled javascript )
 		 */
-		this.timeChecker = Honey.generateInput();
-		this.timeChecker.name = '_time';
-		this.form.appendChild(this.timeChecker);
+		this.timeChecker = $('<input/>',{
+			name : '_time'
+		}).css({
+			display : 'none',
+			visibility : 'hidden'
+		});
+		Form.append(this.timeChecker);
 		/**
 		 * @var int time
 		 *
 		 * Unix timestamp presents form's starting time ( created time )
 		 */
-		this.createTime = Honey.now();
+		this.createTime = $.now();
 		// install submit functionality
 		var that = this;
-		this.form.onsubmit = function(){
+		Form.submit(function(){
 			return that.submit()
-		}
+		});
 
 		/**
 		 * @var int
@@ -127,58 +89,48 @@ var Honey = {
 		this.acceptableTime = 5
 	},
 	// Honey Pot Factory : secure given form
-	// @param : HTMLFormElement Form
+	// @param : jQuery Object Form
 	// @return : Honey.Pot
 	secure : function(Form){
 		return new this.Pot(Form)
 	},
 	// automatically secure all forms inside current document
 	all : function(){
-		var searchForms = this.tag('form'),
-			collection = [];
+		var collection = [];
 
-		for(var i = 0, length = searchForms.length; i < length; i++){
-			collection.push(this.secure(searchForms[i]))
-		}
+		$('form').each(function(index, el) {
+			collection.push(Honey.secure($(el)));	
+		});
 
 		return collection
 	},
 	// Automatically secure all included forms
-	// @param : Array included - a collection of included HTMLFormElement
+	// @param : JQuery object included - a jQuery collection of included HTMLFormElement
 	// @return : array - a collection of Honey.Pot
 	only : function(included){
-		var searchForms = this.tag('form'),
-			collection = [];
+		var collection = [];
 
-		included = included || [];
-
-		if(included.length > 0)
-			for(var i = 0, length = searchForms.length; i < length; i++){
-				if(this.contains(included, searchForms[i]))
-					collection.push(this.secure(searchForms[i]))
-			}
+		included.each(function(index, el) {
+			collection.push(Honey.secure($(el)));
+		});
 
 		return collection
 	},
 	// Automatically secure all forms inside current document except excluded ones
-	// @param : optional Array excluded - a collection of excluded HTMLFormElement
+	// @param : JQuery object excluded - a jQuery collection of excluded HTMLFormElement
 	// @return : array - a collection of Honey.Pot
 	except : function(excluded){
-		excluded = excluded || [];
+		var collection = [],
+			// convert Collection to Array
+			excluded = excluded.toArray();
 
-		if(excluded.length > 0){
-			var searchForms = this.tag('form'),
-				collection = [];
+		$('form').filter(function(index) {
+			return $.inArray(this, excluded);
+		}).each(function(index, el) {
+			collection.push(Honey.secure($(el)));
+		});
 
-			for(var i = 0, length = searchForms.length; i < length; i++){
-				if(!this.contains(excluded, searchForms[i]))
-					collection.push(this.secure(searchForms[i]))
-			}
-
-			return collection
-		}
-		else
-			return this.all();
+		return collection
 	}
 }
 /*
@@ -191,10 +143,10 @@ var Honey = {
 Honey.Pot.prototype = {
 	// allow form to be submitted or not
 	submit : function(){
-		var currentTime = Honey.now();
-		if(this.input.value === '' && !this.toofast(currentTime)) // no more than 5 seconds
+		var currentTime = $.now();
+		if(this.input.val() === '' && !this.toofast(currentTime)) // no more than 5 seconds
 		{
-			this.timeChecker.value = currentTime;
+			this.timeChecker.val(currentTime);
 			return true
 		}
 
@@ -204,7 +156,7 @@ Honey.Pot.prototype = {
 	// @param string name
 	name : function(name){
 		if(typeof name === 'string')
-			this.input.name = name;
+			this.input.attr('name', name);
 
 		return this.input.name
 	},
@@ -219,7 +171,24 @@ Honey.Pot.prototype = {
 	// not acceptable timing
 	// bot is too fast
 	toofast : function(now){
-		now = now || Honey.now();
+		now = now || $.now();
 		return (now - this.createTime) <= this.acceptableTime
 	}
 }
+
+// Extends jQuery object
+// secure forms in collection
+$.fn.secure = function(){
+	if(this.length > 0)
+		return this.length === 1 ? Honey.secure($(this[0])) : Honey.only($(this));
+}
+$.secureAll = function(){
+	return Honey.all()
+}
+$.secureOnly = function(selector){
+	return Honey.only($(selector))
+}
+$.secureExcept = function(selector){
+	return Honey.except($(selector))
+}
+})(jQuery);

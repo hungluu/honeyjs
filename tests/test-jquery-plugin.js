@@ -1,10 +1,8 @@
 (function($){
 	$(document).ready(function(){
-		var form = document.getElementById("1");
+		var pot1 = $("#1").secure();
 
-		var pot1 = Honey.secure(form);
-
-		var pots = Honey.except([form, document.getElementById("not-secured")]);
+		var pots = $(".pots").secure();
 
 		if(typeof QUnit !== "undefined"){
 			QUnit.test("Test installing honey pot on Form #1", function(assert){
@@ -36,7 +34,7 @@
 
 			QUnit.test("Test honey pots on other forms when use global secure function", function(assert){
 				for(var i = 0, length = pots.length; i < length; i++){
-					var form = $(pots[i].form),
+					var form = pots[i].form,
 						identifier = " on Form #" + (i + 2),
 						searchMainInput = form.children("input[name=name]"),
 						searchTimeInput = form.children("input[name=_time]");

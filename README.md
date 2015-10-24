@@ -40,7 +40,32 @@ var pot = Honey.secure(form);
 pot.time(10);
 
 // set a name of empty-required input field
-pot.name('empty-field');
+pot.name('empty');
+```
+
+## jQuery
+
+HoneyJS also supports jQuery as well. HoneyJS jQuery plugin editon is fully integrated with jQuery functionality.
+
+You can use HoneyJS jQuery plugin like this
+
+```javascript
+// secure a form
+$('#form').secure();
+
+// secure all forms with class 'secured'
+$('.secured').secure();
+// or
+$.secureOnly('.secured');
+```
+There a 3 extended jQuery functions
+
+```javascript
+$.secureAll(); // same as Honey.all()
+
+$.secureOnly(selector);
+
+$.secureExcept(selector);
 ```
 
 Enjoy.
