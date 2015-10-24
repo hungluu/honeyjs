@@ -1,6 +1,6 @@
 {
   "name": "honeyjs",
-  "version": "1.0.3",
+  "version": "1.0.2",
   "description": "An open source Javascript Honey Pot implementation",
   "main": "honey-1.0.js",
   "directories": {
@@ -17,6 +17,7 @@
     "honeypot",
     "HoneyJS",
     "javascript",
+    "honeypotjs",
     "honey",
     "pot",
     "avoid",
