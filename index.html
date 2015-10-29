@@ -53,8 +53,8 @@
 <ul>
 <li><a href="//github.com/zudd/HoneyJS/">HoneyJS on Github</a></li>
 <li><a href="//npmjs.com/package/honeyjs">HoneyJS on Npm Registry</a></li>
-<li><a href="//zudd.github.com/HoneyJS/">HoneyJS document</a></li>
-<li><strong><a href="//zudd.github.com/HoneyJS/examples/live.html">Live Demo</a></strong></li>
+<li><a href="//zudd.github.io/HoneyJS/">HoneyJS document</a></li>
+<li><strong><a href="//zudd.github.io/HoneyJS/examples/live.html">Live Demo</a></strong></li>
 </ul>
 <p><strong>Version 1.0.4</strong> : Now accepts Google reCaptcha component as an <strong>additional</strong> security layer. API functions have been changed a lot. Please check our <a href="//zudd.github.io/HoneyJS/">document</a> for more information. Please check version <a href="//github.com/zudd/HoneyJS/releases/tag/1.0.3">1.0.3</a> for old api functions</p>
 <p><strong>HoneyJS is available on npm! Install :</strong></p>
@@ -67,7 +67,7 @@
 <li><a href="#changelog">Changelog</a></li>
 <li><a href="#contribution">Contribution</a></li>
 </ol>
-<h2><strong>How to use</strong></h2><p>This library makes honey pot implementation so easy with some lines of javascript code.</p>
+<h2 id="how-to-use"><strong>How to use</strong></h2><p>This library makes honey pot implementation so easy with some lines of javascript code.</p>
 <p>The simple way</p>
 <pre class="prettyprint source lang-javascript"><code>var form = document.getElementById('secured');
 
@@ -79,14 +79,14 @@ Honey.secure(form);</code></pre><p>Automatically secure all your forms</p>
 Honey.except([form1, form2]);
 
 // secure only forms from list
-Honey.only([form3, form4]);</code></pre><h2><strong>Configuration</strong></h2><p>You will need to get an instance of Honey.Pot to configure over this object</p>
+Honey.only([form3, form4]);</code></pre><h2 id="configuration"><strong>Configuration</strong></h2><p>You will need to get an instance of Honey.Pot to configure over this object</p>
 <pre class="prettyprint source lang-javascript"><code>var pot = Honey.secure(form);
 
 // set acceptable minimum amount of time for form completion
 pot.accept(10);
 
 // set a name of empty-required input field
-pot.name('empty');</code></pre><h2><strong>jQuery</strong></h2><p>HoneyJS also supports <a href="//jquery.com/">jQuery</a> as well. HoneyJS jQuery plugin edition is fully integrated with jQuery functionality.</p>
+pot.name('empty');</code></pre><h2 id="jquery"><strong>jQuery</strong></h2><p>HoneyJS also supports <a href="//jquery.com/">jQuery</a> as well. HoneyJS jQuery plugin edition is fully integrated with jQuery functionality.</p>
 <p>You can use HoneyJS jQuery plugin like this</p>
 <pre class="prettyprint source lang-javascript"><code>// secure a form
 $('#form').secure();
@@ -99,7 +99,7 @@ $.secureOnly('.secured');</code></pre><p>There a 3 extended jQuery functions</p>
 
 $.secureOnly(selector);
 
-$.secureExcept(selector);</code></pre><h2><strong>Google reCaptcha</strong></h2><p>Since <strong><em>1.0.4</em></strong>, HoneyJS started supporting reCaptcha. You need to load Google reCaptcha api script before HoneyJS, like this :</p>
+$.secureExcept(selector);</code></pre><h2 id="google-recaptcha"><strong>Google reCaptcha</strong></h2><p>Since <strong><em>1.0.4</em></strong>, HoneyJS started supporting reCaptcha. You need to load Google reCaptcha api script before HoneyJS, like this :</p>
 <pre class="prettyprint source lang-html"><code>&lt;script src=&quot;//www.google.com/recaptcha/api.js?render=explicit&quot;>&lt;/script>
 &lt;script src=&quot;honey.js&quot;>&lt;/script></code></pre><p>How to use</p>
 <pre class="prettyprint source lang-javascript"><code>// with jQuery
@@ -120,7 +120,7 @@ pot = Honey.captcha(Honey.secure(form));
 // change theme color
 pot.captcha.theme = 'dark';
 // change size
-pot.captcha.size = 'normal';</code></pre><h2><strong>Changelog</strong></h2><p>1.0.5</p>
+pot.captcha.size = 'normal';</code></pre><h2 id="changelog"><strong>Changelog</strong></h2><p>1.0.5</p>
 <ul>
 <li>Fix issue with $.captcha</li>
 <li>Now HoneyJS will try to render components into a place if possible
@@ -134,7 +134,7 @@ pot.captcha.size = 'normal';</code></pre><h2><strong>Changelog</strong></h2><p>1
 <li>Fixed many issues</li>
 <li>First stable version</li>
 </ul>
-<h2><strong>Contribution</strong></h2><p>Contribution is wellcome :)</p>
+<h2 id="contribution"><strong>Contribution</strong></h2><p>Contribution is wellcome :)</p>
 <p>Enjoy.</p></article>
     </section>
 
