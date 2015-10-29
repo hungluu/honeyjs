@@ -3,7 +3,7 @@
 
 An open source Javascript Honey Pot implementation, release under MIT license.
 
-** Links : **
+**Links :**
  - [HoneyJS on Github](//github.com/zudd/HoneyJS/)
  - [HoneyJS on Npm Registry](//npmjs.com/package/honeyjs)
  - [HoneyJS document](//zudd.github.com/HoneyJS/)
