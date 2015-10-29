@@ -3,7 +3,7 @@
 
 An open source Javascript Honey Pot implementation, release under MIT license.
 
-Version 1.0.4 : Now accept Google reCaptcha component as an **additional** security layer. API functions have been changed a lot. Please check our [document](//zudd.github.io/honeyjs) for more information. Please check version [1.0.3](//github.com/zudd/HoneyJS/releases/tag/1.0.3) for old api functions
+Version 1.0.4 : Now accept Google reCaptcha component as an **additional** security layer. API functions have been changed a lot. Please check our [document](//zudd.github.io/HoneyJS/) for more information. Please check version [1.0.3](//github.com/zudd/HoneyJS/releases/tag/1.0.3) for old api functions
 
 **HoneyJS is available on npm! Install :**
 
