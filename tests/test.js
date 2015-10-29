@@ -34,7 +34,7 @@
 			QUnit.test("Test setting minimum acceptable amount of time for completing Form #1", function(assert){
 				pot1.accept(10 * 60); // set minimum time to 10 minutes
 				assert.ok(pot1.fast(), "Try setting minimum time to 10 minutes, form submitting disabled.");
-			})
+			});
 
 			QUnit.test("Test honey pots on other forms when use global secure function", function(assert){
 				for(var i = 0, length = pots.length; i < length; i++){

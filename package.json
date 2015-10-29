@@ -1,6 +1,6 @@
 {
   "name": "honeyjs",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "An open source Javascript Honey Pot implementation",
   "main": "honey.js",
   "directories": {
@@ -39,7 +39,10 @@
   },
   "devDependencies": {
     "grunt": "~0.4.0",
+    "grunt-contrib-jshint": "^0.11.3",
     "grunt-contrib-qunit": "~0.2.0",
+    "jshint-html-reporter": "^0.2.4",
+    "jshint-stylish": "^2.0.1",
     "latodoc": "smeijer/latodoc"
   }
 }
