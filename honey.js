@@ -3,9 +3,9 @@
 | An open source Javascript Honey Pot implementation
 |--------------------------------------------------------------------------
 |
-| @version 1.0.4 - Supporting google reCaptcha
-| @author  Zudd ( Hung Luu )
-| @url	 https://github.com/zudd/honeyjs
+| @version 1.0.5 - Supporting google reCaptcha
+| @author Zudd ( Hung Luu )
+| @url https://github.com/zudd/honeyjs
 | @license The MIT License (MIT)
 |
 | Copyright (c) 2015 Hung Luu
@@ -50,14 +50,14 @@ var Honey = {
 		newInput.style.display = 'none';
 		newInput.style.visibility = 'hidden';
 		newInput.name = name;
-		return newInput
+		return newInput;
 	},
 	/**
 	 * Get current timestamp string
 	 * @return {integer}
 	 */
 	now : function(){
-		return (new Date()).getTime()
+		return (new Date()).getTime();
 	},
 	/**
 	 * A dummy function to detect integer for config time(seconds)
@@ -65,11 +65,9 @@ var Honey = {
 	 * @return {boolean}
 	 */
 	isInt : function(value){
-		var x;
-		if (isNaN(value)) {
+		if(isNaN(value))
 			return false;
-		}
-		x = parseFloat(value);
+		var x = parseFloat(value);
 		return (x | 0) === x;
 	},
 	/**
@@ -79,16 +77,13 @@ var Honey = {
 	 * @return {integer}
 	 */
 	find : function(arr, needle){
-		if(Array.prototype.indexOf){
-			return arr.indexOf(needle)
-		}
+		if(Array.prototype.indexOf)
+			return arr.indexOf(needle);
 		else{
-			for(var x = 0, length = arr.length; x < length; x++){
+			for(var x = 0, length = arr.length; x < length; x++)
 				if(arr[x] === needle)
-					return x
-			}
-
-			return -1
+					return x;
+			return -1;
 		}
 	},
 	/**
@@ -115,13 +110,11 @@ var Honey = {
 	 */
 	cancel : function(event){
 		event = event || window.event;
-
 		event.cancelBubble = true; // IE 7-
 		event.returnValue = false;
 		if(event.preventDefault){
 			event.preventDefault();
 		}
-
 		return false;
 	},
 	/**
@@ -139,14 +132,36 @@ var Honey = {
 		 */
 		this.form = Form;
 		/**
+		 * A place holder to render all HoneyJS componenents into one place inside form
+		 * If an element with class 'honeyjs' can not be found inside form, components will be rendered into form directly
+		 * @since 1.0.5
+		 * @type {HTMLElement}
+		 */
+		this.holder = Form;
+		// test if we can find a '.honeyjs' placeholder
+		if(Form.getElementsByClassName){
+			var findHolders = Form.getElementsByClassName('honeyjs');
+			if(findHolders.length > 0)
+				this.holder = findHolders[0];
+		}
+		else for(var i = 0, e = Form.getElementsByTagName('*'), l = e.length; i < l; i++){
+			// get class list
+			var classList = e[i].className.split(" ");
+			// check if class list contains 'honeyjs'
+			if(Honey.contains(classList, 'honeyjs')){
+				this.holder = e[i];
+				break;
+			}
+		}
+		/**
 		 * An input Form to prevent auto-filling bots with default name is 'name'
 		 * *TO BE checked on server side lately ( optional - in case attacker has disabled javascript )
 		 * @private
 		 * @type {HTMLInputElement}
 		 */
 		this.input = Honey.input('name');
-		// add to form
-		Form.appendChild(this.input);
+		// add to placeholder
+		this.holder.appendChild(this.input);
 		/**
 		 * An input with name '_time'
 		 * *TO BE checked on server side lately ( optional - in case attacker has disabled javascript )
@@ -154,8 +169,8 @@ var Honey = {
 		 * @type {HTMLInputElement}
 		 */
 		this.time = Honey.input('_time');
-		// add to form
-		Form.appendChild(this.time);
+		// add to placeholder
+		this.holder.appendChild(this.time);
 		/**
 		 * Unix timestamp presents form's starting time ( created time )
 		 * @type {integer}
@@ -177,7 +192,6 @@ var Honey = {
 				else
 					return Honey.cancel(event);
 			});
-
 		/**
 		 * An acceptable amount of time from create time to submitting time
 		 * @type {integer}
@@ -185,13 +199,12 @@ var Honey = {
 		 */
 		this.acceptableTime = 5;
 
-
 		/**
 		 * reCaptcha component
 		 * @type {Honey.ReCaptcha}
 		 * @since 1.0.4
 		 */
-		this.captcha = new Honey.ReCaptcha()
+		this.captcha = new Honey.ReCaptcha();
 	},
 	/**
 	 * Honey.Pot 's reCaptcha component
@@ -205,35 +218,30 @@ var Honey = {
 		 * @type {string}
 		 */
 		this.gkey = null;
-
 		/**
 		 * Div to render reCaptcha widget
 		 * @private
 		 * @type {HTMLDivElement}
 		 */
 		this.holder = null;
-
 		/**
 		 * type render options
 		 * @see {@link https://developers.google.com/recaptcha/docs/display#render_param|reCaptcha render parameters}
 		 * @type {string}
 		 */
 		this.type = 'image';
-
 		/**
 		 * type render options
 		 * @see {@link https://developers.google.com/recaptcha/docs/display#render_param|reCaptcha render parameters}
 		 * @type {string}
 		 */
 		this.size = 'normal';
-
 		/**
 		 * type render options
 		 * @see {@link https://developers.google.com/recaptcha/docs/display#render_param|reCaptcha render parameters}
 		 * @type {string}
 		 */
 		this.theme = 'light';
-
 		/**
 		 * Holder for user response
 		 * @see {@link https://developers.google.com/recaptcha/docs/display#js_api|reCaptcha javascript api}
@@ -241,13 +249,12 @@ var Honey = {
 		 * @type {string}
 		 */
 		this.response = null;
-
 		/**
 		 * widget id
 		 * @private
 		 * @type {int}
 		 */
-		this.id = 0
+		this.id = 0;
 	},
 	/**
 	 * Honey Pot Factory : secure given form
@@ -255,7 +262,7 @@ var Honey = {
 	 * @return Honey.Pot
 	 */
 	secure : function(Form){
-		return new this.Pot(Form)
+		return new this.Pot(Form);
 	},
 	/**
 	 * Automatically secure all forms inside current document
@@ -264,12 +271,9 @@ var Honey = {
 	all : function(){
 		var searchForms = this.forms(),
 			collection = [];
-
-		for(var i = 0, length = searchForms.length; i < length; i++){
-			collection.push(this.secure(searchForms[i]))
-		}
-
-		return collection
+		for(var i = 0, length = searchForms.length; i < length; i++)
+			collection.push(this.secure(searchForms[i]));
+		return collection;
 	},
 	/**
 	 * Automatically secure all included forms
@@ -279,16 +283,12 @@ var Honey = {
 	only : function(included){
 		var searchForms = this.forms(),
 			collection = [];
-
 		included = included || [];
-
 		if(included.length > 0)
-			for(var i = 0, length = searchForms.length; i < length; i++){
+			for(var i = 0, length = searchForms.length; i < length; i++)
 				if(this.contains(included, searchForms[i]))
-					collection.push(this.secure(searchForms[i]))
-			}
-
-		return collection
+					collection.push(this.secure(searchForms[i]));
+		return collection;
 	},
 	/**
 	 * Automatically secure all forms inside current document except excluded ones
@@ -297,20 +297,16 @@ var Honey = {
 	 */
 	except : function(excluded){
 		excluded = excluded || [];
-
 		if(excluded.length > 0){
 			var searchForms = this.forms(),
 				collection = [];
-
-			for(var i = 0, length = searchForms.length; i < length; i++){
+			for(var i = 0, length = searchForms.length; i < length; i++)
 				if(!this.contains(excluded, searchForms[i]))
-					collection.push(this.secure(searchForms[i]))
-			}
-
-			return collection
+					collection.push(this.secure(searchForms[i]));
+			return collection;
 		}
 		else
-			return this.all()
+			return this.all();
 	},
 	/*
 	|--------------------------
@@ -326,8 +322,7 @@ var Honey = {
 	key : function(sitekey){
 		if(sitekey)
 			this.gkey = sitekey;
-
-		return this.gkey
+		return this.gkey;
 	},
 	/**
 	 * Add a reCaptcha security layer to existing HoneyPots
@@ -341,14 +336,12 @@ var Honey = {
 			// Hold a google reCaptcha key
 			pots.captcha.key(key || Honey.key());
 		}
-		else for(var i = 0, length = pots.length; i < length; i++){
+		else for(var i = 0, length = pots.length; i < length; i++)
 			// Hold a google reCaptcha key
 			pots[i].captcha.key(key || Honey.key());
-		}
-
-		return pots
+		return pots;
 	}
-}
+};
 /*
 |--------------------------
 | Honey Pot methods
@@ -364,30 +357,28 @@ Honey.Pot.prototype = {
 		if(this.input.value === '' && !this.fast(currentTime) && captcha.check()) // no more than 5 seconds
 		{
 			this.time.value = currentTime;
-			return true
+			return true;
 		}
-
 		// @since 1.0.4
 		// Add a hook to load reCaptcha widget on first fail submiting
 		// @see {@link https://developers.google.com/recaptcha/docs/display#render_param|reCaptcha render parameters}
 		if(captcha.key() && !captcha.holder){
 			captcha.holder = document.createElement('div');
-			this.form.appendChild(captcha.holder);
+			this.holder.appendChild(captcha.holder);
 			captcha.id = grecaptcha.render(captcha.holder, {
 				sitekey : captcha.gkey,
 				theme : captcha.theme,
 				type : captcha.type,
 				size : captcha.size,
 				callback : function(response){
-					captcha.save(response)
+					captcha.save(response);
 				},
 				"expired-callback" : function(){
-					captcha.reset()
+					captcha.reset();
 				}
-			})
+			});
 		}
-
-		return false
+		return false;
 	},
 	/**
 	 * Get or set main input's name
@@ -396,8 +387,7 @@ Honey.Pot.prototype = {
 	name : function(name){
 		if(typeof name === 'string')
 			this.input.name = name;
-
-		return this.input.name
+		return this.input.name;
 	},
 	/**
 	 * Get or set acceptable time
@@ -407,8 +397,7 @@ Honey.Pot.prototype = {
 	accept : function(time){
 		if(Honey.isInt(time))
 			this.acceptableTime = time;
-
-		return this.acceptableTime
+		return this.acceptableTime;
 	},
 	/**
 	 * Get form create time
@@ -420,8 +409,7 @@ Honey.Pot.prototype = {
 	time : function(timestamp){
 		if(timestamp)
 			this.time.value = timestamp;
-
-		return this.createTime
+		return this.createTime;
 	},
 	/**
 	 * Check if form is submited too fast
@@ -430,9 +418,9 @@ Honey.Pot.prototype = {
 	 */
 	fast : function(now){
 		now = now || Honey.now();
-		return (now - this.createTime) <= this.acceptableTime
+		return (now - this.createTime) <= this.acceptableTime;
 	}
-}
+};
 /*
 |----------------------------
 | Honey Pot ReCaptcha methods
@@ -450,8 +438,7 @@ Honey.ReCaptcha.prototype = {
 	key : function(sitekey){
 		if(sitekey)
 			this.gkey = sitekey;
-
-		return this.gkey
+		return this.gkey;
 	},
 	/**
 	 * Save user response
@@ -459,7 +446,7 @@ Honey.ReCaptcha.prototype = {
 	 * @private
 	 */
 	save : function(response){
-		this.response = response
+		this.response = response;
 	},
 	/**
 	 * Check if reCaptcha response is not empty
@@ -469,7 +456,7 @@ Honey.ReCaptcha.prototype = {
 		if(this.gkey)
 			return this.response !== null;
 		else
-			return true
+			return true;
 	},
 	/**
 	 * Reset when reCaptcha expired
@@ -479,4 +466,4 @@ Honey.ReCaptcha.prototype = {
 		if(this.gkey)
 			grecaptcha.reset(this.id);
 	}
-}
+};

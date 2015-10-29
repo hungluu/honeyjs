@@ -4,8 +4,6 @@
 
 		var pot1 = $("#1").secure();
 
-		var pots = $(".pots").secure();
-
 		if(typeof QUnit !== "undefined"){
 			QUnit.test("Test installing honey pot on Form #1", function(assert){
 				var form = $("#1"),
@@ -32,8 +30,10 @@
 			QUnit.test("Test setting minimum acceptable amount of time for completing Form #1", function(assert){
 				pot1.accept(10 * 60); // set minimum time to 10 minutes
 				assert.ok(pot1.fast(), "Try setting minimum time to 10 minutes, form submitting disabled.");
-			})
+			});
 
+			var pots = $(".pots").secure();
+			
 			QUnit.test("Test honey pots on other forms when use global secure function", function(assert){
 				for(var i = 0, length = pots.length; i < length; i++){
 					var form = $(pots[i].form),

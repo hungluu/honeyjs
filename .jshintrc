@@ -1,0 +1,7 @@
+{
+  "browser": true,
+  "globals": {
+    "jQuery": true,
+    "QUnit" : true
+  }
+}
