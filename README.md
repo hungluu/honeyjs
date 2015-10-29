@@ -137,6 +137,7 @@ pot.captcha.size = 'normal';
 1.0.5
  - Fix issue with $.captcha
  - Now HoneyJS will try to render components into a place if possible
+
 1.0.4
  - Update syntax
  - Support reCaptcha
