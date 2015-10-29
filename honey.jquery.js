@@ -3,9 +3,9 @@
 | An open source Javascript Honey Pot implementation - JQuery Plugin Edition
 |--------------------------------------------------------------------------
 |
-| @version 1.0.4 - Supporting google reCaptcha
-| @author  Zudd ( Hung Luu )
-| @url	 https://github.com/zudd/honeyjs
+| @version 1.0.5 - Supporting google reCaptcha
+| @author Zudd ( Hung Luu )
+| @url https://github.com/zudd/honeyjs
 | @license The MIT License (MIT)
 |
 | Copyright (c) 2015 Hung Luu
@@ -57,7 +57,7 @@ var Honey = {
 		}).css({
 			display : 'none',
 			visibility : 'hidden'
-		})
+		});
 	},
 	/**
 	 * A dummy function to detect integer for config time(seconds)
@@ -65,11 +65,9 @@ var Honey = {
 	 * @return {boolean}
 	 */
 	isInt : function(value){
-		var x;
-		if (isNaN(value)) {
+		if(isNaN(value))
 			return false;
-		}
-		x = parseFloat(value);
+		var x = parseFloat(value);
 		return (x | 0) === x;
 	},
 	/**
@@ -88,19 +86,29 @@ var Honey = {
 		 */
 		this.form = Form;
 		/**
+		 * A place holder to render all HoneyJS componenents into one place inside form
+		 * If an element with class 'honeyjs' can not be found inside form, components will be rendered into form directly
+		 * @since 1.0.5
+		 * @type {HTMLElement}
+		 */
+		this.holder = Form;
+		var findHolders = Form.children('.honeyjs');
+		if(findHolders.length > 0)
+			this.holder = $(findHolders[0]);
+		/**
 		 * An input Form to prevent auto-filling bots with default name is 'name'
 		 * *TO BE checked on server side lately ( optional - in case attacker has disabled javascript )
 		 * @private
 		 * @type {Element}
 		 */
-		this.input = Honey.input('name').appendTo(Form);
+		this.input = Honey.input('name').appendTo(this.holder);
 		/**
 		 * An input with name '_time'
 		 * *TO BE checked on server side lately ( optional - in case attacker has disabled javascript )
 		 * @private
 		 * @type {HTMLInputElement}
 		 */
-		this.time = Honey.input('_time').appendTo(Form)
+		this.time = Honey.input('_time').appendTo(this.holder);
 		/**
 		 * Unix timestamp presents form's starting time ( created time )
 		 * @private
@@ -113,7 +121,7 @@ var Honey = {
 			if(that.check())
 				return true;
 			event.preventDefault();
-			return false
+			return false;
 		});
 
 		/**
@@ -128,7 +136,7 @@ var Honey = {
 		 * @type {Honey.ReCaptcha}
 		 * @since 1.0.4
 		 */
-		this.captcha = new Honey.ReCaptcha()
+		this.captcha = new Honey.ReCaptcha();
 	},
 	/**
 	 * Honey.Pot 's reCaptcha component
@@ -185,7 +193,7 @@ var Honey = {
 		 * @private
 		 * @type {int}
 		 */
-		this.id = 0
+		this.id = 0;
 	},
 	/**
 	 * Honey Pot Factory : secure given form
@@ -193,7 +201,7 @@ var Honey = {
 	 * @return Honey.Pot
 	 */
 	secure : function(Form){
-		return new this.Pot(Form)
+		return new this.Pot(Form);
 	},
 	/**
 	 * Automatically secure all forms inside current document
@@ -206,7 +214,7 @@ var Honey = {
 			collection.push(Honey.secure($(el)));	
 		});
 
-		return collection
+		return collection;
 	},
 	/**
 	 * Automatically secure all included forms
@@ -220,7 +228,7 @@ var Honey = {
 			collection.push(Honey.secure($(el)));
 		});
 
-		return collection
+		return collection;
 	},
 	/**
 	 * Automatically secure all forms inside current document except excluded ones
@@ -230,15 +238,15 @@ var Honey = {
 	except : function(excluded){
 		var collection = [],
 			// convert Collection to Array
-			excluded = excluded.toArray();
+			arrayofExcluded = excluded.toArray();
 
-		$('form').filter(function(ind) {
-			return $.inArray(this, excluded);
+		$('form').filter(function() {
+			return $.inArray(this, arrayofExcluded);
 		}).each(function(ind, el) {
 			collection.push(Honey.secure($(el)));
 		});
 
-		return collection
+		return collection;
 	},
 	/*
 	|--------------------------
@@ -255,7 +263,7 @@ var Honey = {
 		if(sitekey)
 			this.gkey = sitekey;
 
-		return this.gkey
+		return this.gkey;
 	},
 	/**
 	 * Automatically secure a form or a collection of forms included with google reCaptcha
@@ -265,17 +273,16 @@ var Honey = {
 	 * @return {Honey.Pot|Honey.Pot[]}
 	 */
 	captcha : function(pots, key){
-		if(pots instanceof Honey.Pot){
+		if(pots instanceof Honey.Pot)
 			// Hold a google reCaptcha key
 			pots.captcha.key(key || Honey.key());
-		}
 		else $.each(pots, function(ind, pot){
 			pot.captcha.key(key || Honey.key());
 		});
 
-		return pots
+		return pots;
 	}
-}
+};
 /*
 |--------------------------
 | Honey Pot methods
@@ -291,29 +298,29 @@ Honey.Pot.prototype = {
 		if(this.input.val() === '' && !this.fast(currentTime) && captcha.check()) // no more than 5 seconds
 		{
 			this.time.val(currentTime);
-			return true
+			return true;
 		}
 
 		// @since 1.0.4
 		// Add a hook to load reCaptcha widget on first fail submiting
 		// @see https://developers.google.com/recaptcha/docs/display#render_param
 		if(captcha.key() && !captcha.holder){
-			captcha.holder = $('<div/>').appendTo(this.form);
+			captcha.holder = $('<div/>').appendTo(this.holder);
 			captcha.id = grecaptcha.render(captcha.holder.get(0), {
 				sitekey : captcha.gkey,
 				theme : captcha.theme,
 				type : captcha.type,
 				size : captcha.size,
 				callback : function(response){
-					captcha.save(response)
+					captcha.save(response);
 				},
 				"expired-callback" : function(){
-					captcha.reset()
+					captcha.reset();
 				}
-			})
+			});
 		}
 
-		return false
+		return false;
 	},
 	/**
 	 * Get or set main input's name
@@ -323,7 +330,7 @@ Honey.Pot.prototype = {
 		if(typeof name === 'string')
 			this.input.name = name;
 
-		return this.input.name
+		return this.input.name;
 	},
 	/**
 	 * Get or set acceptable time
@@ -334,7 +341,7 @@ Honey.Pot.prototype = {
 		if(Honey.isInt(time))
 			this.acceptableTime = time;
 
-		return this.acceptableTime
+		return this.acceptableTime;
 	},
 	/**
 	 * Get form create time
@@ -347,7 +354,7 @@ Honey.Pot.prototype = {
 		if(timestamp)
 			this.time.value = timestamp;
 
-		return this.createTime
+		return this.createTime;
 	},
 	/**
 	 * Check if form is submited too fast
@@ -356,9 +363,9 @@ Honey.Pot.prototype = {
 	 */
 	fast : function(now){
 		now = now || $.now();
-		return (now - this.createTime) <= this.acceptableTime
+		return (now - this.createTime) <= this.acceptableTime;
 	}
-}
+};
 /*
 |----------------------------
 | Honey Pot ReCaptcha methods
@@ -377,14 +384,14 @@ Honey.ReCaptcha.prototype = {
 		if(sitekey)
 			this.gkey = sitekey;
 
-		return this.gkey
+		return this.gkey;
 	},
 	/**
 	 * Save user response
 	 * @param {string} response
 	 */
 	save : function(response){
-		this.response = response
+		this.response = response;
 	},
 	/**
 	 * Check if reCaptcha response is not empty
@@ -394,7 +401,7 @@ Honey.ReCaptcha.prototype = {
 		if(this.gkey)
 			return this.response !== null;
 		else
-			return true
+			return true;
 	},
 	/**
 	 * Reset when reCaptcha expired
@@ -403,7 +410,7 @@ Honey.ReCaptcha.prototype = {
 		if(this.gkey)
 			grecaptcha.reset(this.id);
 	}
-}
+};
 
 /**
  * Secure a jQuery Element or Collection
@@ -411,33 +418,35 @@ Honey.ReCaptcha.prototype = {
  */
 $.fn.secure = function(){
 	if(this.length > 0)
-		return this.length === 1 ? Honey.secure($(this[0])) : Honey.only($(this))
-}
+		return this.length === 1 ? Honey.secure($(this[0])) : Honey.only($(this));
+};
 
 /**
  * Add a reCaptcha security layer to existing HoneyPots
  * @function external:"jQuery".captcha
+ * @param {Honey.Pot|Honey.Pot[]} included honey pot to be secured by reCaptcha
+ * @param {string} key optional key to by-pass global reCaptcha key
  * @return {Honey.Pot|Honey.Pot[]}
  */
-$.captcha = function(included){
-	return Honey.captcha(included)
-}
+$.captcha = function(included, key){
+	return Honey.captcha(included, key);
+};
 /**
  * Set or get global reCaptcha sitekey
  * @function external:"jQuery".captchaKey
  * @return {integer}
  */
 $.captchaKey = function(sitekey){
-	return Honey.key(sitekey)
-}
+	return Honey.key(sitekey);
+};
 /**
  * Automatically secure all forms inside current document
  * @function external:"jQuery".secureAll
  * @return {Honey.Pot[]}
  */
 $.secureAll = function(){
-	return Honey.all()
-}
+	return Honey.all();
+};
 /**
  * Automatically secure all included forms
  * @function external:"jQuery".secureOnly
@@ -445,8 +454,8 @@ $.secureAll = function(){
  * @return {Honey.Pot[]}
  */
 $.secureOnly = function(selector){
-	return Honey.only($(selector))
-}
+	return Honey.only($(selector));
+};
 /**
  * Automatically secure all forms inside current document except excluded ones
  * @function external:"jQuery".secureExcept
@@ -454,6 +463,6 @@ $.secureOnly = function(selector){
  * @return {Honey.Pot[]}
  */
 $.secureExcept = function(selector){
-	return Honey.except($(selector))
-}
+	return Honey.except($(selector));
+};
 })(jQuery);
