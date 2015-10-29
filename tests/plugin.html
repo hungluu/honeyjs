@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>TEST HoneyJS JQuery Plugin WITH QUnit 1.9.0</title>
-	<link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-1.19.0.css">
+	<title>TEST HoneyJS WITH QUnit 1.9.0</title>
+	<link rel="stylesheet" href="resource/qunit-1.19.0.css">
+	<script src="resource/jquery-1.11.3.min.js"></script>
+	<script src="resource/qunit-1.19.0.js"></script>
 </head>
 <body>
 
@@ -15,7 +17,7 @@
 	</fieldset>
 </form>
 
-<form action="./a.html" method="GET" class="pots">
+<form action="./index.html" method="GET" class="pots">
 	<fieldset>
 		<legend>Form #2</legend>
 		<input type="text" name="email">
@@ -24,7 +26,7 @@
 	</fieldset>
 </form>
 
-<form action="./b.html" method="GET" class="pots">
+<form action="./index.html" method="GET" class="pots">
 	<fieldset>
 		<legend>Form #3</legend>
 		<input type="text" name="email">
@@ -45,10 +47,8 @@
 <br/>
 <div id="qunit"></div>
 <div id="qunit-fixture"></div>
-<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 <script src="https://www.google.com/recaptcha/api.js?render=explicit"></script>
 <script src="../honey.jquery.js"></script>
-<script src="http://code.jquery.com/qunit/qunit-1.19.0.js"></script>
-<script src="test-jquery-plugin.js"></script>
+<script src="test-plugin.js"></script>
 </body>
 </html>
