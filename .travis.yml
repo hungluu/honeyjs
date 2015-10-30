@@ -4,6 +4,3 @@ node_js:
 before_script:
   - npm install grunt-cli -g
 script: grunt test --verbose
-addons:
-    code_climate:
-        repo_token: 95d384f995c36e39430b53899a56dc58e89b4aa9c6a573dadb50dc3e90c28773
