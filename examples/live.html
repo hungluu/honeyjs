@@ -46,16 +46,23 @@
 				<br/>
 				<pre class="col-xs-12 prettyprint">
 &lt;!-- Create a form --&gt;
-&lt;form method=POST&gt;
+&lt;form method=POST id=secured&gt;
 &lt;input type=email name=email&gt;
 &lt;input type=password name=password&gt;
 &lt;button type=submit&gt; Submit &lt;/button&gt;
 &lt;/form&gt;
+
 &lt;!-- Load Google reCaptcha --&gt;
 &lt;script src=//www.google.com/recaptcha/api.js?render=explicit&gt;&lt;/script&gt;
+
 &lt;!-- Load jquery and HoneyJS plugin --&gt;
 &lt;script src=//code.jquery.com/jquery-1.11.3.min.js&gt;&lt;/script&gt;
 &lt;script src=honey.jquery.min.js&gt;&lt;/script&gt;
+
+&lt;!-- Secure the form --&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+	$.captcha($('#secured').secure, 'reCaptchaSiteKey');
+&lt;/script&gt;
 				</pre>
 			</form>
 
