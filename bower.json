@@ -1,0 +1,39 @@
+{
+  "name": "honeyjs",
+  "description": "An open source Javascript HoneyPot library",
+  "main": "honey.min.js",
+  "authors": [
+    "Zudd (Hung Luu)"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "honeypot",
+    "honeyjs",
+    "javascript",
+    "honey",
+    "pot",
+    "avoid",
+    "spam",
+    "detect",
+    "bot",
+    "spamming",
+    "jquery",
+    "plugin",
+    "recaptcha",
+    "google",
+    "coverage",
+    "security"
+  ],
+  "moduleType": [],
+  "homepage": "https://zudd.github.io/honeyjs",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "examples",
+    "Gruntfile.js",
+    "*.md"
+  ]
+}
