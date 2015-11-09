@@ -1,100 +1,100 @@
 # HoneyJS
-[![Build Status](https://travis-ci.org/zudd/HoneyJS.svg?branch=master)](https://travis-ci.org/zudd/HoneyJS) [![Code Climate](https://codeclimate.com/github/zudd/HoneyJS/badges/gpa.svg)](https://codeclimate.com/github/zudd/HoneyJS) [![Test Coverage](https://codeclimate.com/github/zudd/HoneyJS/badges/coverage.svg)](https://codeclimate.com/github/zudd/HoneyJS/coverage)
+----
+[![Build Status](https://travis-ci.org/zudd/honeyjs.svg?branch=master)](https://travis-ci.org/zudd/honeyjs)
+[![Code Climate](https://codeclimate.com/github/zudd/HoneyJS/badges/gpa.svg)](https://codeclimate.com/github/zudd/HoneyJS)
+[![Coverage Status](https://coveralls.io/repos/zudd/honeyjs/badge.svg?branch=master&service=github)](https://coveralls.io/github/zudd/honeyjs?branch=master)
 
-An open source Javascript Honey Pot implementation, release under MIT license.
+An open source Javascript HoneyPot library, release under MIT license.
 
-**Links :**
- - [HoneyJS on Github](//github.com/zudd/HoneyJS/)
- - [HoneyJS on Npm Registry](//npmjs.com/package/honeyjs)
- - [HoneyJS document](//zudd.github.io/HoneyJS/)
- - **[Live Demo](//zudd.github.io/HoneyJS/examples/live.html)**
+**Links :** [Github](//github.com/zudd/honeyjs/) - [NPM](//npmjs.com/package/honeyjs) - [Document](//zudd.github.io/honeyjs/1.1.0) - **[Live Demo](//zudd.github.io/honeyjs/)**
 
-**Version 1.0.4** : Now accepts Google reCaptcha component as an **additional** security layer. API functions have been changed a lot. Please check our [document](//zudd.github.io/HoneyJS/) for more information. Please check version [1.0.3](//github.com/zudd/HoneyJS/releases/tag/1.0.3) for old api functions
+![honeyjs image](http://zudd.github.io/honeyjs/favicon.png)
 
-**HoneyJS is available on npm! Install :**
+**Version 1.1.x is here!**
+- Remake API to be more simple and effective
+- Sandbox dependencies for more security
+- Add a ForceCaptcha option to make your forms automatically acquire Google reCaptcha on creation
+- Well tested 256 specs with [mocha](https://mochajs.org/), [blanket](http://blanketjs.org/) and [istanbul](https://github.com/gotwarlost/istanbul)
 
-```
+**Supports :** [Google reCaptcha](https://www.google.com/recaptcha/intro/index.html) - [jQuery](https://jquery.com/)
+
+**Install :**
+
+```bash
 npm install honeyjs
 ```
 
-**Need help?** Leave your issues  [HERE](https://github.com/zudd/HoneyJS/issues)
+**Need help?** Please leave your issues [HERE](https://github.com/zudd/honeyjs/issues)
 
-### Table of contents
+## Table of contents
 
  1. [How to use](#how-to-use)
  2. [Configuration](#configuration)
- 3. [jQuery plugin](#jquery)
- 4. [Google reCaptcha](#google-recaptcha)
- 5. [Changelog](#changelog)
+ 3. [Google reCaptcha](#google-recaptcha)
+ 4. [Changelog](#changelog)
+ 5. [Contributors](#contributors)
  6. [Contribution](#contribution)
 
 ## **How to use**
 
 This library makes honey pot implementation so easy with some lines of javascript code.
 
-The simple way
+The simple javascript way
 
 ```javascript
-var form = document.getElementById('secured');
+var form = document.getElementById('#1');
 
-// secure a single form
-Honey.secure(form);
+honey(form);
 ```
+
+Or jQuery style
+
+```javascript
+$('#1').honey();
+
+// or
+honey('#1');
+```
+
+Check [honey](//zudd.github.io/honeyjs/1.1.0/module-honey.html) and [jQuery plugin](//zudd.github.io/honeyjs/1.1.0/external-_jQuery.fn_.html#.honey) on or document for more information.
 
 Automatically secure all your forms
 
 ```javascript
-Honey.all();
-
-// secure all but exclude some forms
-Honey.except([form1, form2]);
-
-// secure only forms from list
-Honey.only([form3, form4]);
+honey.all();
 ```
 
 ## **Configuration**
 
-You will need to get an instance of Honey.Pot to configure over this object
+Global configurations
 
 ```javascript
-var pot = Honey.secure(form);
+honey.config({
+	theme : 'dark', // reCaptcha theme
+	size  : 'normal' // reCaptcha size
+});
+
+// retrive global options
+var captchaTheme = honey.config('theme');
+```
+
+View our [document](//zudd.github.io/honeyjs/1.1.0/Options.html) for more information
+
+For individually config honeypot(s), you will need to get an instance of [Pot](//zudd.github.io/honeyjs/1.1.0/Pot.html) or [Pots](//zudd.github.io/honeyjs/1.1.0/Pots.html) to configure over these objects
+
+```javascript
+var pots = honey(forms);
 
 // set acceptable minimum amount of time for form completion
-pot.accept(10);
+pots.config({ time : 10 });
 
 // set a name of empty-required input field
-pot.name('empty');
-```
-
-## **jQuery**
-
-HoneyJS also supports [jQuery](//jquery.com/) as well. HoneyJS jQuery plugin edition is fully integrated with jQuery functionality.
-
-You can use HoneyJS jQuery plugin like this
-
-```javascript
-// secure a form
-$('#form').secure();
-
-// secure all forms with class 'secured'
-$('.secured').secure();
-// or
-$.secureOnly('.secured');
-```
-There a 3 extended jQuery functions
-
-```javascript
-$.secureAll(); // same as Honey.all()
-
-$.secureOnly(selector);
-
-$.secureExcept(selector);
+pots.name('empty');
 ```
 
 ## **Google reCaptcha**
 
-Since ***1.0.4***, HoneyJS started supporting reCaptcha. You need to load Google reCaptcha api script before HoneyJS, like this :
+Since **1.0.4**, honeyjs started supporting reCaptcha. You need to load Google reCaptcha api script before honeyjs, like this :
 
 ```html
 <script src="//www.google.com/recaptcha/api.js?render=explicit"></script>
@@ -104,51 +104,54 @@ Since ***1.0.4***, HoneyJS started supporting reCaptcha. You need to load Google
 How to use
 
 ```javascript
-// with jQuery
-$.captcha($('.secured').secure());
+honey(forms).captcha('your-site-key');
 
-// without jQuery
-Honey.captcha(Honey.secure(form));
+// with jQuery
+$(forms).honey('your-site-key');
 ```
+Check out [captcha](//zudd.github.io/honeyjs/1.1.0/Pot.html#captcha) for more information
+
 Set an optional global reCaptcha _sitekey_ for reusing
-
 ```javascript
-// with jQuery
-$.captchaKey(sitekey);
+honey.requireRecaptcha('your-site-key');
 
-// without jQuery
-Honey.key(sitekey);
+// init recaptcha on a form, you don't need to provide a sitekey again
+honey(form).captcha();
 ```
 
-Configure over reCaptcha Widget
+Force all forms to use reCaptcha
 
 ```javascript
-// since 1.0.4 , every Honey.Pot object will have a property name 'captcha' to hold reCaptcha component
-// @see https://developers.google.com/recaptcha/docs/display#render_param
+honey.forceRecaptcha('your-site-key');
 
-// get a Honey.Pot instance with covered by reCaptcha component
-pot = Honey.captcha(Honey.secure(form));
-// change theme color
-pot.captcha.theme = 'dark';
-// change size
-pot.captcha.size = 'normal';
+// reCaptcha will be acquired automatically without calling .captcha()
+honey(form);
 ```
+
 ## **Changelog**
-1.0.5
- - Fix issue with $.captcha
- - Now HoneyJS will try to render components into a place if possible
 
-1.0.4
- - Update syntax
- - Support reCaptcha
- 
-[1.0.3](//github.com/zudd/HoneyJS/releases/tag/1.0.3)
- - Support jquery
- - Fixed many issues
- - First stable version
+Please view [HISTORY.md](https://github.com/zudd/honeyjs/blob/master/HISTORY.md) file
+
+## **Contributors**
+
+See [contributors](https://github.com/zudd/honeyjs/network)
 
 ## **Contribution**
-Contribution is wellcome :)
 
+Everyone is welcome :)
 
-Enjoy.
+Here is some steps :
+
+ 1. Make sure you have a [Github](https://github.com/) account and have installed [npm](https://npmjs.com/)
+ 2. Fork this [repo](https://github.com/zudd/honeyjs), then clone with git@github.com:your-user-name/honeyjs.git
+ 3. Run ```npm install``` to install all dependencies
+ 4. Run ```npm test``` to be sure everything is working
+ 5. Make your changes ( optional write an additional test file if you'are adding somethings and the old test files cannot cover )
+ 6. Run ```npm test``` again to make sure everything is working, then check ```coverage/lcov-report/index.html``` to make sure coverage is above 95% ( This is a security library and we need it to be as much secure as possible )
+ 7. Create a [pull request](https://github.com/zudd/honeyjs/compare/) and write a good commit message.
+
+-----
+
+This project is actively maintained. Please feel free to contact me if you need any further assistance.
+
+Enjoy :beers:
