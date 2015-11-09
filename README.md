@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/zudd/honeyjs.svg?branch=master)](https://travis-ci.org/zudd/honeyjs)
 [![Code Climate](https://codeclimate.com/github/zudd/HoneyJS/badges/gpa.svg)](https://codeclimate.com/github/zudd/HoneyJS)
-[![Coverage Status](https://coveralls.io/repos/zudd/honeyjs/badge.svg?branch=master&service=github)](https://coveralls.io/github/zudd/honeyjs?branch=master)
+[![Coverage Status](https://coveralls.io/repos/zudd/honeyjs/badge.svg?branch=dev&service=github)](https://coveralls.io/github/zudd/honeyjs?branch=dev)
 
 An open source Javascript HoneyPot library, release under MIT license.
 
@@ -18,10 +18,25 @@ An open source Javascript HoneyPot library, release under MIT license.
 
 **Supports :** [Google reCaptcha](https://www.google.com/recaptcha/intro/index.html) - [jQuery](https://jquery.com/)
 
+Thank to [jsDelivr](https://www.jsdelivr.com/)'s awsomeness, honeyjs can be deliveried from the cloud to your site in miliseconds ( only 1.97KB gzipped ), use this :
+
+```javascript
+<script src="https://cdn.jsdelivr.net/honeyjs/1.1.0/honey.min.js"></script>
+```
+
+Or bundle with jQuery for convenient DOM selector string and plugin stuff
+
+```javascript
+<script src="https://cdn.jsdelivr.net/g/jquery@1.11.3,honeyjs@1.1.0"></script>
+```
+
 **Install :**
 
 ```bash
 npm install honeyjs
+
+// or using bower
+brower install honeyjs
 ```
 
 **Need help?** Please leave your issues [HERE](https://github.com/zudd/honeyjs/issues)
@@ -147,8 +162,8 @@ Here is some steps :
  3. Run ```npm install``` to install all dependencies
  4. Run ```npm test``` to be sure everything is working
  5. Make your changes ( optional write an additional test file if you'are adding somethings and the old test files cannot cover )
- 6. Run ```npm test``` again to make sure everything is working, then check ```coverage/lcov-report/index.html``` to make sure coverage is above 95% ( This is a security library and we need it to work as intended )
- 7. Push to your fork, then create a [pull request](https://github.com/zudd/honeyjs/compare/) and write a good commit message.
+ 6. Run ```npm test``` again to make sure everything is working, then check ```coverage/lcov-report/index.html``` to make sure coverage is above 95% ( This is a security library and we need it to be as much secure as possible )
+ 7. Create a [pull request](https://github.com/zudd/honeyjs/compare/) and write a good commit message.
 
 -----
 
