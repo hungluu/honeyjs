@@ -55,8 +55,9 @@ module.exports = function(grunt) {
 					"eqnull" : true,
 					"eqeqeq" : true,
 					"undef" : true,
+					"mocha" : true,
+					"jquery" : true,
 					"globals" : {
-						"jQuery" : true,
 						"grecaptcha" : true
 					},
 					"browser" : true,
