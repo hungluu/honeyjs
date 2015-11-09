@@ -1,5 +1,5 @@
 # HoneyJS
-----
+
 [![Build Status](https://travis-ci.org/zudd/honeyjs.svg?branch=master)](https://travis-ci.org/zudd/honeyjs)
 [![Code Climate](https://codeclimate.com/github/zudd/HoneyJS/badges/gpa.svg)](https://codeclimate.com/github/zudd/HoneyJS)
 [![Coverage Status](https://coveralls.io/repos/zudd/honeyjs/badge.svg?branch=master&service=github)](https://coveralls.io/github/zudd/honeyjs?branch=master)
