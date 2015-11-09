@@ -36,7 +36,7 @@ Or bundle with jQuery for convenient DOM selector string and plugin stuff
 npm install honeyjs
 
 // or using bower
-brower install honeyjs
+bower install honeyjs
 ```
 
 **Need help?** Please leave your issues [HERE](https://github.com/zudd/honeyjs/issues)
