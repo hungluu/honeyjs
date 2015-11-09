@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Home - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+    <link type="text/css" rel="stylesheet" href="styles/custom.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav id="nav">
+    <h3 class="group-title"><a href="index.html">&#x3C; Home &#x3E;</a></h3><input class="search" placeholder="Search" type="text"><div class="list"><h3 class="group-title">Classes</h3><ul><li><a href="Collector.html" class="className">Collector</a><ul class='methods'><li data-type='method'><a href="Collector.html#find" class="methodName">find</a></li><li data-type='method'><a href="Collector.html#flush" class="methodName">flush</a></li><li data-type='method'><a href="Collector.html#has" class="methodName">has</a></li><li data-type='method'><a href="Collector.html#remove" class="methodName">remove</a></li></ul></li><li><a href="Hook.html" class="className">Hook</a><ul class='methods'><li data-type='method'><a href="Hook.html#exec" class="methodName">exec</a></li></ul></li><li><a href="Pot.html" class="className">Pot</a><ul class='methods'><li data-type='method'><a href="Pot.html#captcha" class="methodName">captcha</a></li><li data-type='method'><a href="Pot.html#config" class="methodName">config</a></li><li data-type='method'><a href="Pot.html#config" class="methodName">config</a></li><li data-type='method'><a href="Pot.html#fail" class="methodName">fail</a></li><li data-type='method'><a href="Pot.html#fast" class="methodName">fast</a></li><li data-type='method'><a href="Pot.html#input" class="methodName">input</a></li><li data-type='method'><a href="Pot.html#name" class="methodName">name</a></li><li data-type='method'><a href="Pot.html#name" class="methodName">name</a></li><li data-type='method'><a href="Pot.html#valid" class="methodName">valid</a></li><li data-type='method'><a href="Pot.html#validate" class="methodName">validate</a></li><li data-type='method'><a href="Pot.html#value" class="methodName">value</a></li></ul></li><li><a href="Pots.html" class="className">Pots</a><ul class='methods'><li data-type='method'><a href="Pots.html#captcha" class="methodName">captcha</a></li><li data-type='method'><a href="Pots.html#config" class="methodName">config</a></li><li data-type='method'><a href="Pots.html#each" class="methodName">each</a></li><li data-type='method'><a href="Pots.html#fail" class="methodName">fail</a></li><li data-type='method'><a href="Pots.html#validate" class="methodName">validate</a></li></ul></li><li><a href="ReCaptcha.html" class="className">ReCaptcha</a><ul class='methods'><li data-type='method'><a href="ReCaptcha.html#ready" class="methodName">ready</a></li><li data-type='method'><a href="ReCaptcha.html#required" class="methodName">required</a></li><li data-type='method'><a href="ReCaptcha.html#valid" class="methodName">valid</a></li></ul></li></ul><h3 class="group-title">Modules</h3><ul><li><a href="module-honey.html" class="className">honey</a><ul class='methods'><li data-type='method'><a href="module-honey.html#.all" class="methodName">all</a></li><li data-type='method'><a href="module-honey.html#.config" class="methodName">config</a></li><li data-type='method'><a href="module-honey.html#.forceCaptcha" class="methodName">forceCaptcha</a></li><li data-type='method'><a href="module-honey.html#.requireCaptcha" class="methodName">requireCaptcha</a></li></ul></li></ul><h3 class="group-title">Externals</h3><ul><li><a href="external-_jQuery.fn_.html">jQuery.fn</a><ul class='methods'><li data-type='method'><a href="external-_jQuery.fn_.html#.honey" class="methodName">honey</a></li></ul></li></ul><h3 class="group-title">Events</h3><ul><li><a href="Pot.html#.event:Fail" class="className">Fail</a></li><li><a href="Pot.html#.event:Validating" class="className">Validating</a></li></ul><h3 class="group-title">Namespaces</h3><ul><li><a href="Options.html" class="className">Options</a></li></ul></div>
+</nav>
+
+<div id="main">
+    
+
+    
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    
+
+
+    <section class="readme">
+        <article><h1>HoneyJS</h1><hr>
+<p><a href="https://travis-ci.org/zudd/honeyjs"><img src="https://travis-ci.org/zudd/honeyjs.svg?branch=master" alt="Build Status"></a>
+<a href="https://codeclimate.com/github/zudd/HoneyJS"><img src="https://codeclimate.com/github/zudd/HoneyJS/badges/gpa.svg" alt="Code Climate"></a>
+<a href="https://coveralls.io/github/zudd/honeyjs?branch=master"><img src="https://coveralls.io/repos/zudd/honeyjs/badge.svg?branch=master&amp;service=github" alt="Coverage Status"></a></p>
+<p>An open source Javascript HoneyPot library, release under MIT license.</p>
+<p><strong>Links :</strong> <a href="//github.com/zudd/honeyjs/">Github</a> - <a href="//npmjs.com/package/honeyjs">NPM</a> - <a href="//zudd.github.io/honeyjs/1.1.0">Document</a> - <strong><a href="//zudd.github.io/honeyjs/">Live Demo</a></strong></p>
+<p><strong>Version 1.1 is here!</strong></p>
+<ul>
+<li>Remake API to be more simple and effective</li>
+<li>Sandbox dependencies for more security</li>
+<li>Add a ForceCaptcha option to make your forms automatically acquire Google reCaptcha on creation</li>
+<li>Well tested 256 specs with mocha and coverage tools</li>
+</ul>
+<p><strong>Supports :</strong> <a href="https://www.google.com/recaptcha/intro/index.html">Google reCaptcha</a> - <a href="https://jquery.com/">jQuery</a></p>
+<p><strong>Install :</strong></p>
+<pre class="prettyprint source lang-bash"><code>npm install honeyjs</code></pre><p><strong>Need help?</strong> Please leave your issues <a href="https://github.com/zudd/honeyjs/issues">HERE</a></p>
+<h2>Table of contents</h2><ol>
+<li><a href="#how-to-use">How to use</a></li>
+<li><a href="#configuration">Configuration</a></li>
+<li><a href="#google-recaptcha">Google reCaptcha</a></li>
+<li><a href="#changelog">Changelog</a></li>
+<li><a href="#contributors">Contributors</a></li>
+<li><a href="#contribution">Contribution</a></li>
+</ol>
+<h2><strong>How to use</strong></h2><p>This library makes honey pot implementation so easy with some lines of javascript code.</p>
+<p>The simple javascript way</p>
+<pre class="prettyprint source lang-javascript"><code>var form = document.getElementById('#1');
+
+honey(form);</code></pre><p>Or jQuery style</p>
+<pre class="prettyprint source lang-javascript"><code>$('#1').honey();
+
+// or
+honey('#1');</code></pre><p>Check <a href="//zudd.github.io/honeyjs/1.1.0/module-honey.html">honey</a> and <a href="//zudd.github.io/honeyjs/1.1.0/external-_jQuery.fn_.html#.honey">jQuery plugin</a> on or document for more information.</p>
+<p>Automatically secure all your forms</p>
+<pre class="prettyprint source lang-javascript"><code>honey.all();</code></pre><h2><strong>Configuration</strong></h2><p>Global configurations</p>
+<pre class="prettyprint source lang-javascript"><code>honey.config({
+    theme : 'dark', // reCaptcha theme
+    size  : 'normal' // reCaptcha size
+});
+
+// retrive global options
+var captchaTheme = honey.config('theme');</code></pre><p>View our <a href="//zudd.github.io/honeyjs/1.1.0/Options.html">document</a> for more information</p>
+<p>For individually config honeypot(s), you will need to get an instance of <a href="//zudd.github.io/honeyjs/1.1.0/Pot.html">Pot</a> or <a href="//zudd.github.io/honeyjs/1.1.0/Pots.html">Pots</a> to configure over these objects</p>
+<pre class="prettyprint source lang-javascript"><code>var pots = honey(forms);
+
+// set acceptable minimum amount of time for form completion
+pots.config({ time : 10 });
+
+// set a name of empty-required input field
+pots.name('empty');</code></pre><h2><strong>Google reCaptcha</strong></h2><p>Since <strong>1.0.4</strong>, honeyjs started supporting reCaptcha. You need to load Google reCaptcha api script before honeyjs, like this :</p>
+<pre class="prettyprint source lang-html"><code>&lt;script src=&quot;//www.google.com/recaptcha/api.js?render=explicit&quot;>&lt;/script>
+&lt;script src=&quot;honey.js&quot;>&lt;/script></code></pre><p>How to use</p>
+<pre class="prettyprint source lang-javascript"><code>honey(forms).captcha('your-site-key');
+
+// with jQuery
+$(forms).honey('your-site-key');</code></pre><p>Check out <a href="//zudd.github.io/honeyjs/1.1.0/Pot.html#captcha">captcha</a> for more information</p>
+<p>Set an optional global reCaptcha <em>sitekey</em> for reusing</p>
+<pre class="prettyprint source lang-javascript"><code>honey.requireRecaptcha('your-site-key');
+
+// init recaptcha on a form, you don't need to provide a sitekey again
+honey(form).captcha();</code></pre><p>Force all forms to use reCaptcha</p>
+<pre class="prettyprint source lang-javascript"><code>honey.forceRecaptcha('your-site-key');
+
+// reCaptcha will be acquired automatically without calling .captcha()
+honey(form);</code></pre><h2><strong>Changelog</strong></h2><p>Please view <a href="https://github.com/zudd/honeyjs/blob/master/HISTORY.md">HISTORY.md</a> file</p>
+<h2><strong>Contributors</strong></h2><p>See <a href="https://github.com/zudd/honeyjs/network">contributors</a></p>
+<h2><strong>Contribution</strong></h2><p>Everyone is welcome :)</p>
+<p>Here is some steps :</p>
+<ol>
+<li>Make sure you have a <a href="https://github.com/">Github</a> account and have installed <a href="https://npmjs.com/">npm</a></li>
+<li>Fork this <a href="https://github.com/zudd/honeyjs">repo</a>, then clone with git@github.com:your-user-name/honeyjs.git</li>
+<li>Run <code>npm install</code> to install all dependencies</li>
+<li>Run <code>npm test</code> to be sure everything is working</li>
+<li>Make your changes ( optional write an additional test file if you'are adding somethings and the old test files cannot cover )</li>
+<li>Run <code>npm test</code> again to make sure everything is working, then check <code>coverage/lcov-report/index.html</code> to make sure coverage is above 95% ( This is a security library and we need it to be as much secure as possible )</li>
+<li>Create a <a href="https://github.com/zudd/honeyjs/compare/">pull request</a> and write a good commit message.</li>
+</ol>
+<hr>
+<p>This project is actively maintained. Please feel free to contact me if you need any further assistance.</p>
+<p>Enjoy :beers:.</p></article>
+    </section>
+
+
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.3</a> on Mon, 09 Nov 2015 04:56:48 GMT using
+    <a href="https://www.npmjs.com/package/namis">Namis</a> theme.
+</footer>
+
+<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.nicescroll/3.6.0/jquery.nicescroll.min.js"></script>
+<script src="scripts/namis.search.jquery.js"></script>
+<script>prettyPrint();
+(function($){
+    $('nav').niceScroll({
+        cursorwidth: 7,
+        hwacceleration: true,
+        cursorcolor: "#036564",
+        cursorborder: "1px solid #036564"
+    });
+
+    $('html').niceScroll({
+        cursorwidth: 10,
+        hwacceleration: true,
+        smoothscroll: true,
+        cursorminheight: 32,
+        enablemousewheel: true, // nicescroll can manage mouse wheel events
+        enablekeyboard: true // nicescroll can manage keyboard events
+        ,cursorcolor: "#033649"
+    });
+
+    $('#nav').search(['className', 'methodName']);
+})(jQuery);
+</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

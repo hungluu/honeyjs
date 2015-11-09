@@ -1,0 +1,2132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Pot - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+    <link type="text/css" rel="stylesheet" href="styles/custom.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav id="nav">
+    <h3 class="group-title"><a href="index.html">&#x3C; Home &#x3E;</a></h3><input class="search" placeholder="Search" type="text"><div class="list"><h3 class="group-title">Classes</h3><ul><li><a href="Collector.html" class="className">Collector</a><ul class='methods'><li data-type='method'><a href="Collector.html#find" class="methodName">find</a></li><li data-type='method'><a href="Collector.html#flush" class="methodName">flush</a></li><li data-type='method'><a href="Collector.html#has" class="methodName">has</a></li><li data-type='method'><a href="Collector.html#remove" class="methodName">remove</a></li></ul></li><li><a href="Hook.html" class="className">Hook</a><ul class='methods'><li data-type='method'><a href="Hook.html#exec" class="methodName">exec</a></li></ul></li><li><a href="Pot.html" class="className">Pot</a><ul class='methods'><li data-type='method'><a href="Pot.html#captcha" class="methodName">captcha</a></li><li data-type='method'><a href="Pot.html#config" class="methodName">config</a></li><li data-type='method'><a href="Pot.html#config" class="methodName">config</a></li><li data-type='method'><a href="Pot.html#fail" class="methodName">fail</a></li><li data-type='method'><a href="Pot.html#fast" class="methodName">fast</a></li><li data-type='method'><a href="Pot.html#input" class="methodName">input</a></li><li data-type='method'><a href="Pot.html#name" class="methodName">name</a></li><li data-type='method'><a href="Pot.html#name" class="methodName">name</a></li><li data-type='method'><a href="Pot.html#valid" class="methodName">valid</a></li><li data-type='method'><a href="Pot.html#validate" class="methodName">validate</a></li><li data-type='method'><a href="Pot.html#value" class="methodName">value</a></li></ul></li><li><a href="Pots.html" class="className">Pots</a><ul class='methods'><li data-type='method'><a href="Pots.html#captcha" class="methodName">captcha</a></li><li data-type='method'><a href="Pots.html#config" class="methodName">config</a></li><li data-type='method'><a href="Pots.html#each" class="methodName">each</a></li><li data-type='method'><a href="Pots.html#fail" class="methodName">fail</a></li><li data-type='method'><a href="Pots.html#validate" class="methodName">validate</a></li></ul></li><li><a href="ReCaptcha.html" class="className">ReCaptcha</a><ul class='methods'><li data-type='method'><a href="ReCaptcha.html#ready" class="methodName">ready</a></li><li data-type='method'><a href="ReCaptcha.html#required" class="methodName">required</a></li><li data-type='method'><a href="ReCaptcha.html#valid" class="methodName">valid</a></li></ul></li></ul><h3 class="group-title">Modules</h3><ul><li><a href="module-honey.html" class="className">honey</a><ul class='methods'><li data-type='method'><a href="module-honey.html#.all" class="methodName">all</a></li><li data-type='method'><a href="module-honey.html#.config" class="methodName">config</a></li><li data-type='method'><a href="module-honey.html#.forceCaptcha" class="methodName">forceCaptcha</a></li><li data-type='method'><a href="module-honey.html#.requireCaptcha" class="methodName">requireCaptcha</a></li></ul></li></ul><h3 class="group-title">Externals</h3><ul><li><a href="external-_jQuery.fn_.html">jQuery.fn</a><ul class='methods'><li data-type='method'><a href="external-_jQuery.fn_.html#.honey" class="methodName">honey</a></li></ul></li></ul><h3 class="group-title">Events</h3><ul><li><a href="Pot.html#.event:Fail" class="className">Fail</a></li><li><a href="Pot.html#.event:Validating" class="className">Validating</a></li></ul><h3 class="group-title">Namespaces</h3><ul><li><a href="Options.html" class="className">Options</a></li></ul></div>
+</nav>
+
+<div id="main">
+    
+        <h1 class="page-title">Pot</h1>
+    
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+        Pot
+        </h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+    
+
+    <h4 class="name" id="Pot"><span class="type-signature"></span>new Pot<span class="signature">(Form)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>A Pot - honeypot object - provides security features to forms</p>
+</div>
+
+
+
+
+
+
+
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>Form</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">HTMLFormElement</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>form to be secured</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="honey.js.html">honey.js</a>, <a href="honey.js.html#line345">line 345</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id="captcha"><span class="type-signature"></span>captcha<span class="signature">(key<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="Pot.html">Pot</a>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Set reCaptcha key or activate reCaptcha to render on this form on <code>Fail</code> event</p>
+<p><strong>NOTE :</strong> By default, reCaptcha component is only rendered when form submit failed from validation at the first time
+This component requires Google reCaptcha is loaded and a sitekey is provided. If a forceReCaptcha global <a href="Options.html"><code>Options</code></a>
+is already set, the reCaptcha component is forced to be rendered on pot creation.</p>
+</div>
+
+
+
+
+
+
+
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>key</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>if not provided, the pot will use <code>global key</code> instead</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="honey.js.html">honey.js</a>, <a href="honey.js.html#line715">line 715</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Pot.html">Pot</a></span>
+
+
+    </dd>
+</dl>
+
+        
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="config"><span class="type-signature"></span>config<span class="signature">(options)</span><span class="type-signature"> &rarr; {string}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Set multiple options</p>
+</div>
+
+
+
+
+
+
+
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>an object contains custom options</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="honey.js.html">honey.js</a>, <a href="honey.js.html#line691">line 691</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="Pot.html#options">#options</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        
+    <pre class="prettyprint"><code>pot.config({theme : 'dark'});</code></pre>
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+    </dd>
+</dl>
+
+        
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="config"><span class="type-signature"></span>config<span class="signature">(key)</span><span class="type-signature"> &rarr; {mixed}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Get an option by key</p>
+</div>
+
+
+
+
+
+
+
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>key</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="honey.js.html">honey.js</a>, <a href="honey.js.html#line679">line 679</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="Pot.html#options">#options</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        
+    <pre class="prettyprint"><code>pot.config('key');</code></pre>
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">mixed</span>
+
+
+    </dd>
+</dl>
+
+        
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="fail"><span class="type-signature"></span>fail<span class="signature">(fn)</span><span class="type-signature"> &rarr; {<a href="Pot.html">Pot</a>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>By a fail callback to form submission ( form not passing the validation )</p>
+</div>
+
+
+
+
+
+
+
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>fn</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="honey.js.html">honey.js</a>, <a href="honey.js.html#line663">line 663</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        
+    <pre class="prettyprint"><code>pot.fail(function(){ alert('Can not submit!'); });</code></pre>
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>current honeypot</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Pot.html">Pot</a></span>
+
+
+    </dd>
+</dl>
+
+        
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="fast"><span class="type-signature"></span>fast<span class="signature">(current<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Check if the form submission is too fast</p>
+</div>
+
+
+
+
+
+
+
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>current</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>current timestamp</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="honey.js.html">honey.js</a>, <a href="honey.js.html#line734">line 734</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+    </dd>
+</dl>
+
+        
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="input"><span class="type-signature"></span>input<span class="signature">(name)</span><span class="type-signature"> &rarr; {HTMLInputElement}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Get an input by name. Useful inside hooked functions</p>
+</div>
+
+
+
+
+
+
+
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>input's name</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="honey.js.html">honey.js</a>, <a href="honey.js.html#line748">line 748</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        
+    <pre class="prettyprint"><code>// for validatingpot.validate(function(){   // pot instance is injected inside hooked function   return this.input('email').value === 'alien.say.hello@earth.to'});// or for callbackpot.fail(function(){   this.input('password').value = '';});</code></pre>
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">HTMLInputElement</span>
+
+
+    </dd>
+</dl>
+
+        
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="name"><span class="type-signature"></span>name<span class="signature">(name)</span><span class="type-signature"> &rarr; {string}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Change main input's name</p>
+</div>
+
+
+
+
+
+
+
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="honey.js.html">honey.js</a>, <a href="honey.js.html#line631">line 631</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="Pot.html#empty">#empty</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+    </dd>
+</dl>
+
+        
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="name"><span class="type-signature"></span>name<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Get main input's name</p>
+</div>
+
+
+
+
+
+
+
+
+    
+
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="honey.js.html">honey.js</a>, <a href="honey.js.html#line622">line 622</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="Pot.html#empty">#empty</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+    </dd>
+</dl>
+
+        
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="valid"><span class="type-signature"></span>valid<span class="signature">()</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Check if a honeypot is in valid state</p>
+</div>
+
+
+
+
+
+
+
+
+    
+
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="honey.js.html">honey.js</a>, <a href="honey.js.html#line602">line 602</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+    <h5>Fires:</h5>
+    <ul>
+        <li><code>Validating</code></li>
+    
+        <li><code>Fail</code></li>
+    </ul>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+    </dd>
+</dl>
+
+        
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="validate"><span class="type-signature"></span>validate<span class="signature">(fn)</span><span class="type-signature"> &rarr; {<a href="Pot.html">Pot</a>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>By a validating function or callback to form submission</p>
+</div>
+
+
+
+
+
+
+
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>fn</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="honey.js.html">honey.js</a>, <a href="honey.js.html#line647">line 647</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        
+    <pre class="prettyprint"><code>pot.validate(function(){ return false; });</code></pre>
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>current honeypot</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Pot.html">Pot</a></span>
+
+
+    </dd>
+</dl>
+
+        
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="value"><span class="type-signature"></span>value<span class="signature">(name)</span><span class="type-signature"> &rarr; {string}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Providing an input's name, get its value</p>
+</div>
+
+
+
+
+
+
+
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="honey.js.html">honey.js</a>, <a href="honey.js.html#line771">line 771</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        
+    <pre class="prettyprint"><code>pot.value('register_code').length > 8;</code></pre>
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+    </dd>
+</dl>
+
+        
+
+
+        
+    
+
+    
+
+    
+        <h3 class="subsection-title">Events</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id=".event:Fail">Fail</h4>
+
+    
+
+
+
+<div class="description">
+    <p>Callback hook on fail for honeypot</p>
+<p>Executed when form is submitted but never passes the validation</p>
+</div>
+
+
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type"><a href="Hook.html">Hook</a></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+    
+
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="honey.js.html">honey.js</a>, <a href="honey.js.html#line415">line 415</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="Hook.html"><code>Hook</code></a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".event:Validating">Validating</h4>
+
+    
+
+
+
+<div class="description">
+    <p>Validation hook for honeypot - provide validating feature</p>
+<p>Executed when form is submitted and validating process takes place first</p>
+</div>
+
+
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type"><a href="Hook.html">Hook</a></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+    
+
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="honey.js.html">honey.js</a>, <a href="honey.js.html#line403">line 403</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="Hook.html"><code>Hook</code></a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+        
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.3</a> on Mon, 09 Nov 2015 04:56:49 GMT using
+    <a href="https://www.npmjs.com/package/namis">Namis</a> theme.
+</footer>
+
+<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.nicescroll/3.6.0/jquery.nicescroll.min.js"></script>
+<script src="scripts/namis.search.jquery.js"></script>
+<script>prettyPrint();
+(function($){
+    $('nav').niceScroll({
+        cursorwidth: 7,
+        hwacceleration: true,
+        cursorcolor: "#036564",
+        cursorborder: "1px solid #036564"
+    });
+
+    $('html').niceScroll({
+        cursorwidth: 10,
+        hwacceleration: true,
+        smoothscroll: true,
+        cursorminheight: 32,
+        enablemousewheel: true, // nicescroll can manage mouse wheel events
+        enablekeyboard: true // nicescroll can manage keyboard events
+        ,cursorcolor: "#033649"
+    });
+
+    $('#nav').search(['className', 'methodName']);
+})(jQuery);
+</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

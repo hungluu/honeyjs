@@ -1,12 +1,4 @@
-@font-face {
-  font-family: 'Lato';
-  src: url('../fonts/Lato-Regular.ttf') format('truetype');
-}
-
-@font-face {
-  font-family: 'Source Code Pro';
-  src: url('../fonts/SourceCodePro-Regular.ttf') format('truetype');
-}
+@import url(http://fonts.googleapis.com/css?family=Montserrat:400,700);
 
 * {
   box-sizing: border-box
@@ -21,16 +13,16 @@ body {
   color: #4d4e53;
   background-color: white;
   margin: 0 auto;
-  padding: 0 0;
+  padding: 0 20px;
 
-  font-family: 'Lato';
+  font-family: 'Helvetica Neue', Helvetica, sans-serif;
   font-size: 16px;
   line-height: 160%;
 }
 
 a,
 a:active {
-  color: #000;
+  color: #0095dd;
   text-decoration: none;
 }
 
@@ -43,7 +35,7 @@ p, ul, ol, blockquote {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Lato';
+  font-family: 'Montserrat', sans-serif;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -93,8 +85,7 @@ h6 {
 }
 
 tt, code, kbd, samp {
-  font-family: 'Source Code Pro';
-  font-size: 80%;
+  font-family: Consolas, Monaco, 'Andale Mono', monospace;
   background: #f4f4f4;
   padding: 1px 5px;
   border-radius: 5px;
@@ -112,7 +103,7 @@ tt, code, kbd, samp {
 }
 
 #main {
-  margin-left: 250px;
+  float: right;
   min-width: 360px;
   width: calc(100% - 250px);
 }
@@ -139,47 +130,29 @@ section {
 }
 
 nav {
-  position: fixed;
-  top: 0;
+  float: left;
   display: block;
   width: 250px;
+  background: #fff;
+  overflow: auto;
+  position: fixed;
   height: 100%;
-  background: rgb(51,51,51);
-  overflow-y: auto;
 }
 
-nav h2 {
-  margin: 0;
-  padding: 0;
-  background: rgb(18, 102, 150);
-}
-
-nav > h2 > a {
-  display: block;
-  width: 100%;
-  height: 100%;
-  color: #fff !important;
-  font-weight: 700;
-  margin: 0;
-  padding: 10px 10px 6px 10px;
-}
-
-nav h2,
 nav h3 {
-  margin: 0;
+  margin-top: 12px;
   font-size: 13px;
   text-transform: uppercase;
   letter-spacing: 1px;
   font-weight: 700;
   line-height: 24px;
-  color: #fff !important;
+  margin: 15px 0 10px;
+  padding: 0;
+  color: #000;
 }
 
-nav h3 {
-  padding: 10px 10px 6px 10px;
-}
 nav ul {
-  font-family: 'Lato';
+  font-family: 'Lucida Grande', 'Lucida Sans Unicode', arial, sans-serif;
   font-size: 100%;
   line-height: 17px;
   padding: 0;
@@ -187,30 +160,27 @@ nav ul {
   list-style-type: none;
 }
 
-nav ul a {
-  font-family: 'Lato';
+nav ul a,
+nav ul a:active {
+  font-family: 'Montserrat', sans-serif;
   line-height: 18px;
   padding: 0;
   display: block;
   font-size: 12px;
-  transition: padding 0.2s, color 0.2s, font-weight 0.2s;
 }
 
-nav ul a:hover {
-  color: #fff;
+nav ul a:hover,
+nav ul a:active {
+  color: hsl(200, 100%, 43%);
   text-decoration: none;
-  font-weight: bold;
 }
 
 nav > ul {
-  padding: 0;
+  padding: 0 10px;
 }
 
 nav > ul > li > a {
-  margin: 0;
-  color: #999;
-  padding: 4px 10px 4px 10px;
-  font-weight: 500;
+  color: #000;
 }
 
 nav ul ul {
@@ -227,15 +197,25 @@ nav ul ul a:active {
   padding-left: 20px
 }
 
+nav h2 {
+   font-size: 12px;
+   margin: 0;
+   padding: 0;
+}
+
+nav > h2 > a {
+   display: block;
+   margin: 10px 0 -10px;
+   color: hsl(202, 71%, 50%) !important;
+}
+
 footer {
   color: hsl(0, 0%, 28%);
   margin-left: 250px;
   display: block;
-  padding: 30px;
-  font-size: 80%;
-  color: #999;
-  text-transform: lowercase;
+  padding: 15px;
   font-style: italic;
+  font-size: 90%;
 }
 
 .ancestors {
@@ -257,26 +237,23 @@ footer {
 }
 
 .yes-def {
-  text-indent: -1000px;
+  text-indent: -1000px
 }
 
 .type-signature {
-  color: #aaa;
+  color: #aaa
 }
 
 .name, .signature {
-  font-family: 'Source Code Pro';
-  font-size: 80%;
+  font-family: Consolas, Monaco, 'Andale Mono', monospace
 }
 
 .details {
-  margin: 0;
-  color: #999;
+  margin-top: 14px;
+  border-left: 2px solid #DDD;
+  line-height: 30px;
 }
 
-.details .tag-source a {
-  color: #999;
-}
 .details dt {
    width: 120px;
    float: left;
@@ -394,8 +371,8 @@ footer {
 
 .params .name, .props .name, .name code {
    color: #4D4E53;
-   font-family: 'Source Code Pro';
-   font-size: 80%;
+   font-family: Consolas, Monaco, 'Andale Mono', monospace;
+   font-size: 100%;
 }
 
 .params td, .params th, .props td, .props th {
@@ -441,8 +418,7 @@ dl.param-type {
 }
 
 .param-type dd {
-  font-family: 'Source Code Pro';
-  font-size: 80%;
+  font-family: Consolas, Monaco, 'Andale Mono', monospace
 }
 
 .disabled {
@@ -574,11 +550,16 @@ dl.param-type {
   }
 
   nav {
+    background: #FFF;
+    width: 250px;
+    height: 100%;
+    position: fixed;
     top: 0;
     right: 0;
     bottom: 0;
     left: -250px;
     z-index: 3;
+    padding: 0 10px;
     transition: left 0.2s;
   }
 
@@ -593,8 +574,6 @@ dl.param-type {
   #main {
     width: 100%;
     min-width: 360px;
-    margin-left: 0;
-    padding: 0 25px;
   }
 
   #main h1.page-title {
