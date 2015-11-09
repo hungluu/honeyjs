@@ -162,8 +162,8 @@ Here is some steps :
  3. Run ```npm install``` to install all dependencies
  4. Run ```npm test``` to be sure everything is working
  5. Make your changes ( optional write an additional test file if you'are adding somethings and the old test files cannot cover )
- 6. Run ```npm test``` again to make sure everything is working, then check ```coverage/lcov-report/index.html``` to make sure coverage is above 95% ( This is a security library and we need it to be as much secure as possible )
- 7. Create a [pull request](https://github.com/zudd/honeyjs/compare/) and write a good commit message.
+ 6. Run ```npm test``` again to make sure everything is working, then check ```coverage/lcov-report/index.html``` to make sure coverage is above 95% ( This is a security library so we need everything to perform as intended )
+ 7. Push to your fork, create a [pull request](https://github.com/zudd/honeyjs/compare/) and write a good commit message.
 
 -----
 
