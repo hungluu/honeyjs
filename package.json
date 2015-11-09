@@ -1,13 +1,20 @@
 {
   "name": "honeyjs",
-  "version": "1.0.5",
-  "description": "An open source Javascript Honey Pot implementation",
+  "version": "1.1.0",
+  "description": "An open source Javascript HoneyPot library",
   "main": "honey.js",
   "directories": {
     "test": "tests"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build-cov": "echo '!!BUILDING COV FILES ...' && istanbul instrument honey.js > test/honey.cov.js && istanbul instrument honey.min.js > test/honey.min.cov.js && echo '!!DONE'",
+    "report-cov": "echo '!!REPORTING COVERAGE ...' && istanbul report --root coverage lcov && echo '!!DONE'",
+    "run-test": "echo '!!RUNNING TESTS ...' && grunt test && rm -f test/honey.cov.js && rm -f test/honey.min.cov.js && echo '!!DONE'",
+    "send-cov": "echo '!!SENDING TO COVERALLS ...' && grunt send-cov && rm -f -R coverage && echo '!!DONE'",
+    "test": "npm run build-cov && npm run run-test && npm run report-cov",
+    "build": "npm run build-cov && npm run run-test && npm run report-cov && npm run send-cov",
+    "build-doc": "jsdoc -c jsdoc.json && cp -a -f examples/. doc/ && cp -a -f doc/honeyjs/. doc/ && rm -R -f doc/honeyjs",
+    "clean-doc": "rm -R -f doc"
   },
   "repository": {
     "type": "git",
@@ -15,18 +22,21 @@
   },
   "keywords": [
     "honeypot",
-    "HoneyJS",
+    "honeyjs",
     "javascript",
-    "honeypotjs",
     "honey",
     "pot",
     "avoid",
-    "spams",
+    "spam",
     "detect",
     "bot",
     "spamming",
-    "jQuery",
-    "plugin"
+    "jquery",
+    "plugin",
+    "recaptcha",
+    "google",
+    "coverage",
+    "security"
   ],
   "author": "Zudd (Hung Luu)",
   "license": "MIT",
@@ -38,11 +48,18 @@
     "node": ">=0.8"
   },
   "devDependencies": {
-    "grunt": "~0.4.0",
+    "blanket": "^1.1.9",
+    "chai": "^3.4.0",
+    "grunt": "^0.4.5",
+    "grunt-contrib-connect": "^0.11.2",
     "grunt-contrib-jshint": "^0.11.3",
-    "grunt-contrib-qunit": "~0.2.0",
-    "jshint-html-reporter": "^0.2.4",
+    "grunt-coveralls": "^1.0.0",
+    "grunt-mip": "^1.0.8",
+    "jshint": "^2.8.0",
     "jshint-stylish": "^2.0.1",
-    "latodoc": "smeijer/latodoc"
+    "mocha": "^2.3.3"
+  },
+  "optionalDependencies": {
+    "namis": "^1.0.0"
   }
 }

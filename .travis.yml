@@ -3,4 +3,5 @@ node_js:
   - "4.0.0"
 before_script:
   - npm install grunt-cli -g
-script: grunt test --verbose
+  - npm install istanbul -g
+script: npm build

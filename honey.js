@@ -3,7 +3,7 @@
 | An open source Javascript Honey Pot implementation
 |--------------------------------------------------------------------------
 |
-| @version 1.0.5 - Supporting google reCaptcha
+| @version 1.1.0
 | @author Zudd ( Hung Luu )
 | @url https://github.com/zudd/honeyjs
 | @license The MIT License (MIT)
@@ -27,443 +27,1076 @@
 | LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 | OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 */
-/**
- * HoneyJS 's global namespace
- * @namespace Honey
- */
-var Honey = {
+
+var honey = (function(){ // jshint ignore:line
+	'use strict';
+	// Global options, dependencies, exports
+	var O, D, exports;
+
 	/**
-	 * Hold global Google reCaptcha key
-	 * @private
-	 * @type {string}
+	 * Global options
+	 *
+	 * @namespace Options
 	 */
-	gkey : '',
+	O = {
+		/**
+		 * Google reCaptcha theme
+		 * @see https://developers.google.com/recaptcha/docs/display#render_param
+		 * @default light
+		 * @type {String}
+		 * @inner
+		 * @memberOf Options
+		 */
+		theme:'light',
+		/**
+		 * Google reCaptcha type
+		 * @see https://developers.google.com/recaptcha/docs/display#render_param
+		 * @default image
+		 * @type {String}
+		 * @memberOf Options
+		 * @inner
+		 */
+		type:'image',
+		/**
+		 * Google reCaptcha size
+		 * @see https://developers.google.com/recaptcha/docs/display#render_param
+		 * @default normal
+		 * @type {String}
+		 * @memberOf Options
+		 * @inner
+		 */
+		size:'normal',
+		/**
+		 * Honeyjs minimum time for form submission
+		 * @default 6
+		 * @type {number}
+		 * @memberOf Options
+		 * @inner
+		 */
+		time:6,
+		/**
+		 * Global holder class name to find when install components
+		 * @default honeyjs
+		 * @type {String}
+		 * @memberOf Options
+		 * @inner
+		 */
+		holderClass:'honeyjs',
+		/**
+		 * Global sitekey for reCaptcha to be rendered
+		 * @see  https://developers.google.com/recaptcha/docs/display#render_param
+		 * @default null
+		 * @type {String}
+		 * @memberOf Options
+		 * @inner
+		 */
+		key:null,
+		/**
+		 * For forcing reCaptcha on every new honeypot created
+		 * @default false
+		 * @type {boolean}
+		 * @memberOf Options
+		 * @inner
+		 */
+		forceCaptcha:false
+	};
+
 	/**
-	 * Generate a new Honey Pot required input (hidden by style) field
-	 * @param {string} name
-	 * @return {HTMLInputElement}
-	 * @private
+	 * Dependencies
 	 */
-	input : function(name){
-		var newInput = document.createElement('input');
-		// hide new input
-		newInput.style.display = 'none';
-		newInput.style.visibility = 'hidden';
-		newInput.name = name;
-		return newInput;
-	},
-	/**
-	 * Get current timestamp string
-	 * @return {integer}
-	 */
-	now : function(){
-		return (new Date()).getTime();
-	},
-	/**
-	 * A dummy function to detect integer for config time(seconds)
-	 * @param {mixed} value
-	 * @return {boolean}
-	 */
-	isInt : function(value){
-		if(isNaN(value))
+	D = {
+		/* GENERIC */
+		// get all forms inside document, return {HTMLCollection}
+		getForms : function(){
+			return document.getElementsByTagName('form');
+		},
+		// get current timestamp
+		// @return {number}
+		now : function(){
+			return Date.now ? Date.now() : (new Date()).getTime();
+		},
+
+		/* RECAPTCHA */
+		// install reCaptcha callbacks
+		// binded callbacks to reCaptcha render options
+		// @param {ReCaptcha} reCaptcha object
+		// @param {Object} options
+		// return edited options
+		installReCaptchaCallbacks : function(re, options){
+			// @see : https://developers.google.com/recaptcha/docs/display#render_param
+			function callback(response){
+				re.save(response);
+			}
+			// @see : https://developers.google.com/recaptcha/docs/display#render_param
+			function excallback(){
+				re.reset();
+			}
+			options.callback = callback;
+			options['expired-callback'] = excallback;
+			return options;
+		},
+		// active reCaptcha immediately on a pot, actually after 300 miliseconds
+		// @param {Pot} a honeypot object
+		// @return {Function} real callback was binded
+		activateReCaptchaAutomatically : function(pot){
+			function fn(){
+				pot.activateCaptcha();
+			}
+			setTimeout(fn, 300);
+			return fn;
+		},
+
+		/* JQUERY PLUGIN */
+		// install jQuery plugin for honeyjs
+		// @param {Class} $ jQuery
+		// @param {String} name name of plugin
+		// @param {Function} fn function of plugin
+		// @return {boolean} return true on successful installation and vice versa
+		installjQueryPlugin : function($, name, fn){
+			// check if jQuery acquired
+			if($){
+				$.fn[name] = fn;
+
+				return true;
+			}
+			else{
+				return false;
+			}
+		},
+
+		/* WORKING WITH ARRAY AND COLLECTION */
+		// find index of an element inside array
+		// @param {mixed} needle
+		// @param {Array} arr
+		// @return {number} index if found, -1 on opposite
+		find : function(needle, arr){
+			if(arr.indexOf){
+				return arr.indexOf(needle);
+			}
+			else{
+				for(var i = 0, l = arr.length;i < l;i++){
+					if(arr[i] === needle){
+						return i;
+					}
+				}
+				return -1;
+			}
+		},
+		// check if an array contains an element
+		// @param {mixed} needle
+		// @param {Array} arr
+		// @return {boolean} true when found and vice versa
+		contains : function(needle, arr){
+			return D.find(needle, arr) !== -1;
+		},
+
+		/* POT INSTALLATION */
+		// get form(pot)'s holder element to render honeyjs components
+		// @param {HTMLFormElement} form
+		// @param {String} className the class name of holder to find
+		getHolder : function(form, className){
+			var holders;
+			if(form.getElementsByClassName){
+				holders = form.getElementsByClassName(className);
+				return holders.length ? holders[0] : form;
+			}
+			// IE 7-
+			else{
+				var classList;
+				holders = form.getElementsByTagName('*');
+				for(var i = 0, l = holders.length;i < l;i++){
+					classList = holders[i].className.split(' ');
+					if(D.contains(className, classList)){
+						return holders[i];
+					}
+				}
+				return form;
+			}
+		},
+		// Generate a hidden input with provide name in forms
+		// @param {HTMLElement} element
+		// @param {String} name new hidden input's name
+		hiddenInput : function(element, name){
+			var newInput = document.createElement('input');
+			newInput.name = name;
+			newInput.style.display = 'none';
+			newInput.style.visibility = 'hidden';
+			element.appendChild(newInput);
+			return newInput;
+		},
+		// Bind an event into form
+		// @param {HTMLElement} element
+		// @param {String} eventName
+		// @param {Function} handler
+		// @param {Object} caller
+		bind : function(element, eventName, handler, caller){
+			// Keep memory with local function
+			function attachedHandler(event){
+				var result = handler.call(caller, event);
+				if(result === false){
+					D.cancel(event);
+				}
+
+				return result;
+			}
+
+			if(element.addEventListener){
+				element.addEventListener(eventName, attachedHandler, false);
+			}
+			else{
+				// IE 9-
+				element.attachEvent('on' + eventName, attachedHandler);
+			}
+
+			return attachedHandler;
+		},
+		// Cancel an event
+		// @param {EventArguments} event
+		cancel : function(event){
+			event = event || window.event;
+			if(event){
+				// IE 7-
+				event.cancelBubble = true;
+				event.returnValue = false;
+				if(event.stopPropagation){
+					event.stopPropagation();
+				}
+				if(event.preventDefault){
+					event.preventDefault();
+				}
+			}
 			return false;
-		var x = parseFloat(value);
-		return (x | 0) === x;
-	},
-	/**
-	 * A dummy function to find an element's index inside array
-	 * @param {mixed[]} arr array containing element
-	 * @param {mixed} neddle element to be found
-	 * @return {integer}
-	 */
-	find : function(arr, needle){
-		if(Array.prototype.indexOf)
-			return arr.indexOf(needle);
-		else{
-			for(var x = 0, length = arr.length; x < length; x++)
-				if(arr[x] === needle)
-					return x;
-			return -1;
-		}
-	},
-	/**
-	 * A dummy function to check if array contains an element
-	 * @param {mixed[]} arr array containing element
-	 * @param {mixed} neddle element to be found
-	 * @return {boolean}
-	 */
-	contains : function(arr, needle){
-		return this.find(arr, needle) !== -1;
-	},
-	/**
-	 * A dummy function to get all forms available
-	 * @return {HTMLCollection}
-	 */
-	forms : function(){
-		return document.getElementsByTagName('form');
-	},
-	/**
-	 * An ultility function to disable and event from executing
-	 * For disabling forms' submiting when bots found
-	 * @param {SubmitEvent} event
-	 * @private
-	 */
-	cancel : function(event){
-		event = event || window.event;
-		event.cancelBubble = true; // IE 7-
-		event.returnValue = false;
-		if(event.preventDefault){
-			event.preventDefault();
-		}
-		return false;
-	},
-	/**
-	 * Honey Pot object
-	 *
-	 * Managing securities on a Form
-	 *
-	 * @constructor
-	 * @param {HTMLFormElement} Form current secured form
-	 */
-	Pot : function(Form){
+		},
+
+		/* POT ULTILITIES */
+		// from a form, get an input by name
+		// @param {HTMLFormElement} Form
+		// @param {String} name of the input element to find
+		// @return {HTMLInputElement}
+		getInputByName : function(Form, name){
+			var inputs = Form.getElementsByTagName('input');
+			for(var i = 0, l = inputs.length;i < l;i++){
+				if(inputs[i].name === name){
+					return inputs[i];
+				}
+			}
+		},
+		// check if current is dev environment
+		isDev : function(){
+			return !navigator.plugins.length;
+		},
+		// outject all dependencies for testing on dev environment
+		// @param {boolean} isDev
+		__installDev : function(isDev){
+			if(isDev){
+				exports.dev = D;
+			}
+
+			return !!isDev;
+		},
+
+		/* TYPES */
+
 		/**
-		 * Current secured form
-		 * @type {HTMLFormElement}
+		 * Extends array, provides more methods to work with collections such as {@link Pots} and {@link Hook}
+		 *
+		 * @class Collector
+		 * @alias Collector
+		 *
+		 * @extends {Array}
 		 */
-		this.form = Form;
+		Collector : function(){},
+
 		/**
-		 * A place holder to render all HoneyJS componenents into one place inside form
-		 * If an element with class 'honeyjs' can not be found inside form, components will be rendered into form directly
-		 * @since 1.0.5
-		 * @type {HTMLElement}
+		 * Google reCaptcha component
+		 *
+		 * @class ReCaptcha
+		 * @alias ReCaptcha
+		 *
+		 * @requires {@link https://developers.google.com/recaptcha/docs/display|Google reCaptcha}
 		 */
-		this.holder = Form;
-		// test if we can find a '.honeyjs' placeholder
-		if(Form.getElementsByClassName){
-			var findHolders = Form.getElementsByClassName('honeyjs');
-			if(findHolders.length > 0)
-				this.holder = findHolders[0];
+		ReCaptcha : function(){
+			// a holder to render components
+			this.holder = null;
+			/**
+			 * Google reCaptcha sitekey
+			 * @type {string}
+			 * @default null
+			 */
+			this.key = null;
+			// ID got when being rendered
+			this.id = null;
+			// Response got when user click on reCaptcha
+			this.response = null;
+		},
+
+		/**
+		 * A collection of functions, provide serial processing and interaction between them
+		 *
+		 * Works like a collection of **callbacks**. It can be a collection **validators** too
+		 *
+		 * A function inside a hook which _return false_ will **prevent** its next ones to be executed
+		 *
+		 * @class Hook
+		 * @alias Hook
+		 *
+		 * @extends {Collector}
+		 */
+		Hook : function(){},
+
+		/**
+		 * A Pot - honeypot object - provides security features to forms
+		 *
+		 * @class Pot
+		 * @alias Pot
+		 *
+		 * @param {HTMLFormElement} Form form to be secured
+		 */
+		Pot : function(Form){
+			/**
+			 * Pot's options, inherited from {@link Options}
+			 *
+			 * @type {Object}
+			 */
+			this.options = O;
+			/**
+			 * Current secured form
+			 *
+			 * @type {HTMLFormElement}
+			 */
+			this.form = Form;
+			/**
+			 * Timestamp of when pot was created
+			 * @type {number}
+			 * @private
+			 */
+			this.createdAt = D.now();
+			/**
+			 * Pot's holder to render components
+			 * @type {HTMLElement}
+			 */
+			this.holder = D.getHolder(Form, O.holderClass);
+			/**
+			 * Main input is required by a honeypot
+			 *
+			 * Should be empty and hidden
+			 *
+			 * **To do : ** Recheck its existence and value on server-side, in case attacker has disabled javascript
+			 *
+			 * @type {HTMLInputElement}
+			 */
+			this.empty = D.hiddenInput(this.holder, 'name');
+			/**
+			 * A timestamp input describe the time form was submitted
+			 *
+			 * Provide more information for validation
+			 *
+			 * **To do : ** Recheck its existence and value on server-side, in case attacker has disabled javascript
+			 *
+			 * @type {HTMLInputElement}
+			 */
+			this.time = D.hiddenInput(this.holder, '_time');
+			/**
+			 * Central place for hooks(events, validators...)
+			 *
+			 * @type {Object}
+			 */
+			this.hooks = {};
+			/**
+			 * Validation hook for honeypot - provide validating feature
+			 *
+			 * Executed when form is submitted and validating process takes place first
+			 *
+			 * @event Validating
+			 * @see {@link Hook}
+			 * @type {Hook}
+			 * @public
+			 * @memberOf Pot
+			 */
+			this.hooks.validate = new D.Hook();
+			/**
+			 * Callback hook on fail for honeypot
+			 *
+			 * Executed when form is submitted but never passes the validation
+			 *
+			 * @event Fail
+			 * @see {@link Hook}
+			 * @type {Hook}
+			 * @public
+			 * @memberOf Pot
+			 */
+			this.hooks.fail = new D.Hook();
+
+			// reCaptcha component
+			// @type {ReCaptcha}
+			this.re = new D.ReCaptcha();
+
+			// Bind form submit event and inject pot instance
+			D.bind(Form, 'submit', function(){
+				return this.valid();
+			}, this)();
+
+			// Install reCaptcha sitekey
+			this.re.key = this.options.key;
+			// Activate reCaptcha immediately when being forced to
+			if(O.forceCaptcha && this.options.key){
+				D.activateReCaptchaAutomatically(this);
+			}
+		},
+
+		/**
+		 * A collection of Pot
+		 *
+		 * @extends {Collector}
+		 * @class Pots
+		 * @alias Pots
+		 *
+		 */
+		Pots : function(){}
+	};
+
+	/* Collector extends Array */
+	D.Collector.prototype = Array.prototype;
+	/**
+	 * Find index of element inside collection
+	 * @method find
+	 * @memberOf Collector
+	 * @instance
+	 * @param  {mixed} e element to find
+	 * @return {number}  index when found, -1 on the opposite side
+	 */
+	D.Collector.prototype.find = function(e){
+		return D.find(e, this);
+	};
+	/**
+	 * Check if a collection contains an element
+	 * @param  {mixed}  e element to find
+	 * @return {boolean} true on found and vice versa
+	 * @method has
+	 * @memberOf Collector
+	 * @instance
+	 */
+	D.Collector.prototype.has = function(e){
+		return D.contains(e, this);
+	};
+	/**
+	 * Remove an element
+	 * @param  {mixed} e element to remove
+	 * @method remove
+	 * @memberOf Collector
+	 * @instance
+	 */
+	D.Collector.prototype.remove = function(e){
+		var ind = this.find(e), found = ind !== -1;
+		if(found){
+			this.splice(ind, 1);
 		}
-		else for(var i = 0, e = Form.getElementsByTagName('*'), l = e.length; i < l; i++){
-			// get class list
-			var classList = e[i].className.split(" ");
-			// check if class list contains 'honeyjs'
-			if(Honey.contains(classList, 'honeyjs')){
-				this.holder = e[i];
+
+		return found;
+	};
+	/**
+	 * Erase a collection
+	 * @method flush
+	 * @memberOf Collector
+	 * @instance
+	 */
+	D.Collector.prototype.flush = function(){
+		this.length = 0;
+	};
+
+	D.Hook.prototype = D.Collector.prototype;
+	/**
+	 * Execute a Hook
+	 * @method exec
+	 * @memberOf Hook
+	 * @instance
+	 * @param  {Object} caller
+	 * @return {Mixed} Result returned from the last function
+	 */
+	D.Hook.prototype.exec = function(caller){
+		var result = true;
+		for(var i = 0, l = this.length;i < l;i++){
+			result = this[i].call(caller);
+			if(result === false){
 				break;
 			}
 		}
-		/**
-		 * An input Form to prevent auto-filling bots with default name is 'name'
-		 * *TO BE checked on server side lately ( optional - in case attacker has disabled javascript )
-		 * @private
-		 * @type {HTMLInputElement}
-		 */
-		this.input = Honey.input('name');
-		// add to placeholder
-		this.holder.appendChild(this.input);
-		/**
-		 * An input with name '_time'
-		 * *TO BE checked on server side lately ( optional - in case attacker has disabled javascript )
-		 * @private
-		 * @type {HTMLInputElement}
-		 */
-		this.time = Honey.input('_time');
-		// add to placeholder
-		this.holder.appendChild(this.time);
-		/**
-		 * Unix timestamp presents form's starting time ( created time )
-		 * @type {integer}
-		 */
-		this.createTime = Honey.now();
-		// Install secured submit functionality on Form
-		var that = this;
-		if(Form.addEventListener)
-			Form.addEventListener("submit", function(event){
-				if(that.check())
-					return true;
-				else
-					return Honey.cancel(event);
-			}, true);
-		else
-			Form.attachEvent('onsubmit', function(event){
-				if(that.check())
-					return true;
-				else
-					return Honey.cancel(event);
-			});
-		/**
-		 * An acceptable amount of time from create time to submitting time
-		 * @type {integer}
-		 * @private
-		 */
-		this.acceptableTime = 5;
+		return result;
+	};
 
+	D.ReCaptcha.prototype = {
 		/**
-		 * reCaptcha component
-		 * @type {Honey.ReCaptcha}
-		 * @since 1.0.4
+		 * Check if reCaptcha is ready for use
+		 * @method ready
+		 * @return {boolean}
+		 * @memberOf ReCaptcha
+		 * @instance
 		 */
-		this.captcha = new Honey.ReCaptcha();
-	},
-	/**
-	 * Honey.Pot 's reCaptcha component
-	 * @since 1.0.4
-	 * @constructor
-	 */
-	ReCaptcha : function(){
+		ready : function(){
+			return this.holder !== null;
+		},
 		/**
-		 * Key holder
+		 * Check if reCaptcha is required for a {@link Pot}
+		 * @return {boolean}
+		 * @memberOf ReCaptcha
+		 * @instance
+		 */
+		required : function(){
+			return this.key !== null;
+		},
+		/**
+		 * Load reCaptcha components once
+		 * @param  {Object} options
+		 * @return {HTMLElement} current holder element
 		 * @private
-		 * @type {string}
 		 */
-		this.gkey = null;
+		load : function(options){
+			if(typeof grecaptcha !== 'undefined' && this.required() && !this.ready()){
+				this.holder = document.createElement('div');
+				options.sitekey = this.key;
+				D.installReCaptchaCallbacks(this, options);
+				this.id = grecaptcha.render(this.holder, options);
+			}
+			return this.holder;
+		},
 		/**
-		 * Div to render reCaptcha widget
+		 * Save user response
+		 * @event Save
+		 * @param  {string} response
 		 * @private
-		 * @type {HTMLDivElement}
 		 */
-		this.holder = null;
+		save : function(response){
+			this.response = response;
+		},
 		/**
-		 * type render options
-		 * @see {@link https://developers.google.com/recaptcha/docs/display#render_param|reCaptcha render parameters}
-		 * @type {string}
-		 */
-		this.type = 'image';
-		/**
-		 * type render options
-		 * @see {@link https://developers.google.com/recaptcha/docs/display#render_param|reCaptcha render parameters}
-		 * @type {string}
-		 */
-		this.size = 'normal';
-		/**
-		 * type render options
-		 * @see {@link https://developers.google.com/recaptcha/docs/display#render_param|reCaptcha render parameters}
-		 * @type {string}
-		 */
-		this.theme = 'light';
-		/**
-		 * Holder for user response
-		 * @see {@link https://developers.google.com/recaptcha/docs/display#js_api|reCaptcha javascript api}
+		 * Reset reCaptcha component
+		 * @event Reset
 		 * @private
-		 * @type {string}
 		 */
-		this.response = null;
+		reset : function(){
+			if(this.key && this.id && typeof grecaptcha !== 'undefined'){
+				grecaptcha.reset(this.id);
+			}
+		},
 		/**
-		 * widget id
-		 * @private
-		 * @type {int}
+		 * Check if reCaptcha component is in valid state
+		 * @method valid
+		 * @return {boolean}
+		 * @memberOf ReCaptcha
+		 * @instance
 		 */
-		this.id = 0;
-	},
-	/**
-	 * Honey Pot Factory : secure given form
-	 * @param {HTMLFormElement} Form
-	 * @return Honey.Pot
-	 */
-	secure : function(Form){
-		return new this.Pot(Form);
-	},
-	/**
-	 * Automatically secure all forms inside current document
-	 * @return {Honey.Pot[]}
-	 */
-	all : function(){
-		var searchForms = this.forms(),
-			collection = [];
-		for(var i = 0, length = searchForms.length; i < length; i++)
-			collection.push(this.secure(searchForms[i]));
-		return collection;
-	},
-	/**
-	 * Automatically secure all included forms
-	 * @param {HTMLFormElement[]|HTMLCollection} included A collection of included HTMLFormElement
-	 * @return {Honey.Pot[]}
-	 */
-	only : function(included){
-		var searchForms = this.forms(),
-			collection = [];
-		included = included || [];
-		if(included.length > 0)
-			for(var i = 0, length = searchForms.length; i < length; i++)
-				if(this.contains(included, searchForms[i]))
-					collection.push(this.secure(searchForms[i]));
-		return collection;
-	},
-	/**
-	 * Automatically secure all forms inside current document except excluded ones
-	 * @param {HTMLFormElement[]|HTMLCollection} excluded Optional, a collection of excluded HTMLFormElement
-	 * @return {Honey.Pot[]}
-	 */
-	except : function(excluded){
-		excluded = excluded || [];
-		if(excluded.length > 0){
-			var searchForms = this.forms(),
-				collection = [];
-			for(var i = 0, length = searchForms.length; i < length; i++)
-				if(!this.contains(excluded, searchForms[i]))
-					collection.push(this.secure(searchForms[i]));
-			return collection;
-		}
-		else
-			return this.all();
-	},
-	/*
-	|--------------------------
-	| Recaptcha methods
-	|--------------------------
-	| @since 1.0.4
-	*/
-	/**
-	 * Get or set current global reCaptcha sitekey
-	 * @param {string} sitekey optional, a reCaptcha sitekey
-	 * @return {string}
-	 */
-	key : function(sitekey){
-		if(sitekey)
-			this.gkey = sitekey;
-		return this.gkey;
-	},
-	/**
-	 * Add a reCaptcha security layer to existing HoneyPots
-	 * @since 1.0.4
-	 * @param {Honey.Pot|Honey.Pot[]} pots
-	 * @param {string} key optional key to by-pass global reCaptcha key
-	 * @return {Honey.Pot|Honey.Pot[]}
-	 */
-	captcha : function(pots, key){
-		if(pots instanceof Honey.Pot){
-			// Hold a google reCaptcha key
-			pots.captcha.key(key || Honey.key());
-		}
-		else for(var i = 0, length = pots.length; i < length; i++)
-			// Hold a google reCaptcha key
-			pots[i].captcha.key(key || Honey.key());
-		return pots;
-	}
-};
-/*
-|--------------------------
-| Honey Pot methods
-|--------------------------
-*/
-Honey.Pot.prototype = {
-	/**
-	 * Handling form submiting
-	 * @return {boolean}
-	 */
-	check : function(){
-		var currentTime = Honey.now(), captcha = this.captcha;
-		if(this.input.value === '' && !this.fast(currentTime) && captcha.check()) // no more than 5 seconds
-		{
-			this.time.value = currentTime;
-			return true;
-		}
-		// @since 1.0.4
-		// Add a hook to load reCaptcha widget on first fail submiting
-		// @see {@link https://developers.google.com/recaptcha/docs/display#render_param|reCaptcha render parameters}
-		if(captcha.key() && !captcha.holder){
-			captcha.holder = document.createElement('div');
-			this.holder.appendChild(captcha.holder);
-			captcha.id = grecaptcha.render(captcha.holder, {
-				sitekey : captcha.gkey,
-				theme : captcha.theme,
-				type : captcha.type,
-				size : captcha.size,
-				callback : function(response){
-					captcha.save(response);
-				},
-				"expired-callback" : function(){
-					captcha.reset();
+		valid : function(){
+			if(this.required()){
+				if(typeof grecaptcha === 'undefined'){
+					return false;
 				}
+				else{
+					return this.ready() && this.response !== null;
+				}
+			}
+			else{
+				return true;
+			}
+		}
+	};
+
+	D.Pot.prototype = {
+		/**
+		 * Check if a honeypot is in valid state
+		 *
+		 * @method valid
+		 * @memberOf Pot
+		 * @instance
+		 * @return {boolean}
+		 * @fires {@link #.event:Validating|Validating}
+		 * @fires {@link #.event:Fail|Fail}
+		 */
+		valid : function(){
+			var currentTime = D.now();
+			if(this.hooks.validate.exec(this) && this.empty.value === '' && !this.fast(currentTime) && this.re.valid()){
+				this.time.value = currentTime;
+				return true;
+			}
+			this.activateCaptcha();
+			this.hooks.fail.exec(this);
+			return false;
+		},
+		/**
+		 * Get main input's name
+		 *
+		 * @method name
+		 * @memberOf Pot
+		 * @instance
+		 * @return {string}
+		 * @see #empty
+		 */
+		/**
+		 * Change main input's name
+		 *
+		 * @method name
+		 * @memberOf Pot
+		 * @instance
+		 * @param {string} name
+		 * @return {string}
+		 * @see  #empty
+		 */
+		name : function(name){
+			if(name){
+				this.empty.name = name;
+			}
+			return this.empty.name;
+		},
+		/**
+		 * By a validating function or callback to form submission
+		 *
+		 * @method  validate
+		 * @memberOf Pot
+		 * @instance
+		 * @param  {Function} fn
+		 * @return {Pot} current honeypot
+		 * @chainable
+		 * @example
+		 * pot.validate(function(){ return false; });
+		 */
+		validate : function(fn){
+			this.hooks.validate.push(fn);
+			return this;
+		},
+		/**
+		 * By a fail callback to form submission ( form not passing the validation )
+		 *
+		 * @method  fail
+		 * @memberOf Pot
+		 * @instance
+		 * @param  {Function} fn
+		 * @return {Pot} current honeypot
+		 * @chainable
+		 * @example
+		 * pot.fail(function(){ alert('Can not submit!'); });
+		 */
+		fail : function(fn){
+			this.hooks.fail.push(fn);
+			return this;
+		},
+		/**
+		 * Get an option by key
+		 *
+		 * @method config
+		 * @memberOf Pot
+		 * @instance
+		 * @param {string} key
+		 * @return {mixed}
+		 * @see #options
+		 * @example
+		 * pot.config('key');
+		 */
+		/**
+		 * Set multiple options
+		 *
+		 * @method config
+		 * @memberOf Pot
+		 * @instance
+		 * @param {Object} options an object contains custom options
+		 * @return {string}
+		 * @see  #options
+		 * @example
+		 * pot.config({theme : 'dark'});
+		 */
+		config : function(options){
+			if(typeof options === 'string'){
+				return this.options[options];
+			}
+			else{
+				for(var x in options){
+					this.options[x] = options[x];
+				}
+
+				return this;
+			}
+		},
+		/**
+		 * Set reCaptcha key or activate reCaptcha to render on this form on {@link #event:Fail|Fail} event
+		 *
+		 * **NOTE :** By default, reCaptcha component is only rendered when form submit failed from validation at the first time
+		 * This component requires Google reCaptcha is loaded and a sitekey is provided. If a forceReCaptcha global {@link Options}
+		 * is already set, the reCaptcha component is forced to be rendered on pot creation.
+		 *
+		 * @method captcha
+		 * @memberOf Pot
+		 * @instance
+		 * @param {string} [key] if not provided, the pot will use {@link #key|global key} instead
+		 * @return {Pot}
+		 * @chainable
+		 *
+		 */
+		captcha : function(key){
+			this.re.key = key || O.key;
+			return this;
+		},
+		/**
+		 * Check if the form submission is too fast
+		 *
+		 * @method fast
+		 * @memberOf Pot
+		 * @instance
+		 * @param {Number} [current] current timestamp
+		 * @return {boolean}
+		 */
+		fast : function(current){
+			current = current || D.now();
+			return current - this.createdAt <= this.options.time;
+		},
+		/* Form ultilities */
+		/**
+		 * Get an input by name. Useful inside hooked functions
+		 *
+		 * @method input
+		 * @memberOf Pot
+		 * @instance
+		 * @param  {string} name input's name
+		 * @return {HTMLInputElement}
+		 * @example
+		 * // for validating
+		 * pot.validate(function(){
+		 *    // pot instance is injected inside hooked function
+		 *    return this.input('email').value === 'alien.say.hello@earth.to'
+		 * });
+		 *
+		 * // or for callback
+		 * pot.fail(function(){
+		 *    this.input('password').value = '';
+		 * });
+		 */
+		input : function(name){
+			return D.getInputByName(this.form, name);
+		},
+		/**
+		 * Providing an input's name, get its value
+		 *
+		 * @method value
+		 * @memberOf Pot
+		 * @instance
+		 * @param {string} name
+		 * @return {string}
+		 * @example
+		 * pot.value('register_code').length > 8;
+		 */
+		value : function(name){
+			var element = this.input(name);
+			if(element){
+				return element.value;
+			}
+		},
+		/**
+		 * Add and element to holder
+		 *
+		 * @param  {HTMLElement} element
+		 * @private
+		 * @method push
+		 * @memberOf Pot
+		 * @instance
+		 */
+		push : function(element){
+			if(element){
+				this.holder.appendChild(element);
+			}
+		},
+		/**
+		 * Install reCaptcha component on honeypot
+		 *
+		 * @private
+		 * @method activateCaptcha
+		 * @memberOf Pot
+		 * @instance
+		 */
+		activateCaptcha : function(){
+			this.push(this.re.load({
+				theme:this.options.theme,
+				type:this.options.type,
+				size:this.options.size
+			}));
+		}
+	};
+
+	D.Pots.prototype = D.Collector.prototype;
+	/**
+	 * Loop throughout collection and execute the same function on each honeypot
+	 *
+	 * @param  {Function} fn
+	 * @return {Pots} current Pots
+	 * @chainable
+	 *
+	 * @method each
+	 * @memberOf Pots
+	 * @instance
+	 *
+	 * @example
+	 * pots.each(function(pot){
+	 *    // check if any pot is not ready
+	 *    if(!pot.valid()){
+	 *       alert('You are not human, are you?');
+	 *    }
+	 * });
+	 */
+	D.Pots.prototype.each = function(fn){
+		for(var i = 0, l = this.length;i < l;i++){
+			fn(this[i]);
+		}
+		return this;
+	};
+	/**
+	 * Install captcha key on each honeypot inside this collection
+	 *
+	 * @param  {string} [key] if no key provided, this method use <a href="./Options.html#key">global key</a> instead
+	 * @return {Pots} current Pots
+	 * @chainable
+	 *
+	 * @method captcha
+	 * @memberOf Pots
+	 * @instance
+	 *
+	 * @example
+	 * // this way
+	 * pots.captcha('someSiteKey');
+	 *
+	 * // has the same effects to
+	 * pots.config({ key : 'someSiteKey' });
+	 *
+	 *
+	 */
+	D.Pots.prototype.captcha = function(key){
+		return this.each(function(p){
+			p.captcha(key);
+		});
+	};
+	/**
+	 * Config over all honeypot inside this collection
+	 *
+	 * @param  {Object} options
+	 * @return {Pots}
+	 *
+	 * @method config
+	 * @memberOf Pots
+	 * @instance
+	 *
+	 * @example
+	 * pots.config({ theme : 'light' });
+	 */
+	D.Pots.prototype.config = function(options){
+		if(typeof options === 'string' && this.length){
+			return this[0].config(options);
+		}
+		else{
+			return this.each(function(p){
+				p.config(options);
 			});
 		}
-		return false;
-	},
+	};
 	/**
-	 * Get or set main input's name
-	 * @param {string} name
+	 * Add the same function to validate hooks of all honeypot instances inside this collections
+	 *
+	 * @param  {Function} fn
+	 * @return {Pots} current Pots
+	 *
+	 * @method validate
+	 * @memberOf Pots
+	 * @instance
 	 */
-	name : function(name){
-		if(typeof name === 'string')
-			this.input.name = name;
-		return this.input.name;
-	},
+	D.Pots.prototype.validate = function(fn){
+		return this.each(function(p){
+			p.validate(fn);
+		});
+	};
 	/**
-	 * Get or set acceptable time
-	 * @since 1.0.4
-	 * @param {integer} time
+	 * Add the same function to fail hooks of all honeypot instances inside this collections
+	 *
+	 * @param  {Function} fn
+	 * @return {Pots} current Pots
+	 *
+	 * @method fail
+	 * @memberOf Pots
+	 * @instance
 	 */
-	accept : function(time){
-		if(Honey.isInt(time))
-			this.acceptableTime = time;
-		return this.acceptableTime;
-	},
+	D.Pots.prototype.fail = function(fn){
+		return this.each(function(p){
+			p.fail(fn);
+		});
+	};
+
 	/**
-	 * Get form create time
-	 * <b>or set form current time to _time input</b>
-	 * @since 1.0.4
-	 * @param {integer} timestamp optional, to be set to _time value
-	 * @return {integer}
+	 * Provide security to forms
+	 *
+	 * - Return {@link Pot} instance for a form or a **collection** that contains **only one** form
+	 * - Return {@link Pots} for multiple forms
+	 * - Without jQuery, this method will use old-fashioned javascript ways to initialize honeypot instances
+	 * - jQuery is optional but **required** to be **loaded before** honeyjs if jQuery selector **string** is provided as a parameter to this function
+	 *
+	 * @see https://api.jquery.com/category/selectors
+	 *
+	 * @module
+	 *
+	 * @param  {HTMLFormElement|HTMLCollection|HTMLFormElement[]|jQuerySelctor} Param A Form or a collection of forms to be secured
+	 * @return {Pot|Pots} {@link Pot} for a form and {@link Pots} for a collection of forms
+	 *
+	 * @example
+	 * honey(document.getElementById('secured'));
+	 *
+	 * honey([form1, form2]);
+	 *
+	 * honey(document.getElementByTagName('*'));
+	 *
+	 * honey($('ul#1').find('li'));
+	 *
+	 * // the jQuery ways
+	 * honey('.class');
+	 *
+	 * honey('#id');
+	 *
+	 * honey('form[method=GET]');
 	 */
-	time : function(timestamp){
-		if(timestamp)
-			this.time.value = timestamp;
-		return this.createTime;
-	},
+	exports = function(Param){
+		if(typeof Param === 'string' && typeof jQuery !== 'undefined'){
+			return exports(jQuery(Param));
+		}
+
+		if(Param instanceof HTMLFormElement){
+			return new D.Pot(Param);
+		}
+		else{
+			if(Param.length === 1){
+				return exports(Param[0]);
+			}
+			else{
+				var collection = new D.Pots();
+				for(var i = 0, l = Param.length;i < l;i++){
+					collection.push(exports(Param[i]));
+				}
+				return collection;
+			}
+		}
+	};
+
 	/**
-	 * Check if form is submited too fast
-	 * @param {integer} now optional, provide submiting time
-	 * @return {boolean}
+	 * Provide a global sitekey for reCaptcha
+	 *
+	 * @param  {string} [key] global sitekey to be set
+	 * @return {string}       global sitekey after being changed
+	 * @see  {@link Options#key}
+	 *
+	 * @example
+	 * // this
+	 * honey.requireCaptcha('someSiteKey');
+	 *
+	 * // has the same effects as
+	 * honey.config({ key : 'someSiteKey' });
 	 */
-	fast : function(now){
-		now = now || Honey.now();
-		return (now - this.createTime) <= this.acceptableTime;
-	}
-};
-/*
-|----------------------------
-| Honey Pot ReCaptcha methods
-|----------------------------
-| @since 1.0.4
-*/
-Honey.ReCaptcha.prototype = {
+	exports.requireCaptcha = function(key){
+		O.key = key;
+		return O.key;
+	};
+
 	/**
-	 * Set current sitekey
-	 * <u>before reCaptcha widget rendered</u>
-	 * or get current sitekey
-	 * @param {string} sitekey optional
-	 * @return {string}
+	 * Force all new created {@link Pot} to **install and activate** reCaptcha component on pot creation
+	 *
+	 * @requires {@link https://developers.google.com/recaptcha/docs/display|Google reCaptcha}
+	 *
+	 * @see  {@link Pot#captcha}
+	 * @param  {string} [key] global sitekey to be set and used
+	 * @return {boolean} true is reCaptcha is forced from now on.
+	 *
+	 * @example
+	 * // force reCaptcha
+	 * honey.forCaptcha('someSiteKey');
+	 *
+	 * var pot = honey("#1"); // the reCaptcha component of form#1 is now rendered immediately (actually 300ms delay)
 	 */
-	key : function(sitekey){
-		if(sitekey)
-			this.gkey = sitekey;
-		return this.gkey;
-	},
+	exports.forceCaptcha = function(key){
+		O.forceCaptcha = !!exports.requireCaptcha(key);
+		return O.forceCaptcha;
+	};
+
 	/**
-	 * Save user response
-	 * @param {string} response
-	 * @private
+	 * Get or set global options
+	 *
+	 * @param  {string|Objects} param
+	 * @return {mixed}
+	 * @see  {@link Options}
+	 *
+	 * @example
+	 * // Get an option by key
+	 * honey.config('theme');
+	 *
+	 * // Set options
+	 * honey.config({ theme : 'dark' });
 	 */
-	save : function(response){
-		this.response = response;
-	},
+	exports.config = function(params){
+		if(typeof params === 'string'){
+			return O[params];
+		}
+		else{
+			for(var x in params){
+				O[x] = params[x];
+			}
+		}
+	};
+
 	/**
-	 * Check if reCaptcha response is not empty
-	 * Only when reCaptcha is used over Honey Pot
+	 * Automatically secure all forms inside document
+	 *
+	 * @return {Pots} A collection of honeypot instance
+	 *
+	 * @example
+	 * // this
+	 * honey.all();
+	 *
+	 * // is an alias of
+	 * honey(document.getElementsByTagName('form'));
 	 */
-	check : function(){
-		if(this.gkey)
-			return this.response !== null;
-		else
-			return true;
-	},
+	exports.all = function(){
+		return exports(D.getForms());
+	};
+
 	/**
-	 * Reset when reCaptcha expired
-	 * @private
+	 * jQuery plugin
+	 *
+	 * @global
+	 * @external "jQuery.fn"
+	 * @see {@link http://learn.jquery.com/plugins/|jQuery Plugins}
 	 */
-	reset : function(){
-		if(this.gkey)
-			grecaptcha.reset(this.id);
-	}
-};
+
+	/**
+	 * Automatically secure all forms inside jQuery object
+	 * @param  {string|Objects} [params] set a reCaptcha sitekey if input a string, or change options if input an object
+	 * @return {Pot|Pots}
+	 *
+	 * @function external:"jQuery.fn".honey
+	 * @instance
+	 *
+	 * @example
+	 * $('#1').honey();
+	 *
+	 * $('#2').honey('someSiteKey'); // is short version of $('#2').honey().captcha('someSiteKey');
+	 *
+	 * $('#3').honey({ theme : 'dark' }); // is short version of $('#3').honey().config({ theme : 'dark' });
+	 */
+	D.installjQueryPlugin(jQuery, 'honey', function(params){
+		var ret = exports(this);
+
+		if(ret && params){
+			if(typeof params === 'string'){
+				return ret.captcha(params);
+			}
+			else{
+				return ret.config(params);
+			}
+		}
+
+		return ret;
+	});
+
+	/* MOCKING DEPENDENCIES FOR TESTING */
+	/* PhantomJS */
+	D.__installDev(D.isDev());
+
+	return exports;
+})();

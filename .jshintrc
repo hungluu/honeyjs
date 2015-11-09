@@ -1,7 +1,17 @@
 {
-  "browser": true,
-  "globals": {
-    "jQuery": true,
-    "QUnit" : true
-  }
+	"curly" : true,
+	"eqnull" : true,
+	"eqeqeq" : true,
+	"undef" : true,
+	"globals" : {
+		"jQuery" : true,
+		"grecaptcha" : true
+	},
+	"browser" : true,
+	"bitwise" : true,
+	"immed" : true,
+	"newcap" : true,
+	"noarg" : true,
+	"undef" : true,
+	"unused" : "vars"
 }
