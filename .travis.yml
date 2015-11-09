@@ -4,4 +4,4 @@ node_js:
 before_script:
   - npm install grunt-cli -g
   - npm install istanbul -g
-script: npm build
+script: npm run build
