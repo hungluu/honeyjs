@@ -1,7 +1,7 @@
 (function($){
-	function map(arr, fn){
+	function search_map(arr, fn){
 		if(arr.map){
-			arr.map(fn);
+			arr = arr.map(fn);
 		}
 		else{
 			for(var i = 0, l = arr.length; i < l; i++){
@@ -16,7 +16,8 @@
 		e = $(e);
 		this.e = e;
 		this.s = e.find('.search').get(0);
-		this.list = e.find(map(classList, function(e){ return '.' + e; }).join(','));
+		var list = search_map(classList, function(e){ return '.' + e; });
+		this.list = e.find(list.join(','));
 
 		var that = this;
 
@@ -31,8 +32,10 @@
 			}
 
 			$(input).on('input', ev);
+			$(input).on('propertychange input', ev);
 			$(input).keyup(function(e) {
-				if (e.keyCode == 8 || e.keyCode == 46) { //backspace and delete key
+				var code = e.code || e.which;
+				if (code == 8 || code == 46) { //backspace and delete key
 					ev();
 				}
 			});
