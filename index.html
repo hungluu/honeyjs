@@ -1,4 +1,4 @@
-<!-- @source http://codepen.io/andornagy/pen/lKBHv  -->
+<!-- @source //codepen.io/andornagy/pen/lKBHv  -->
 <!DOCTYPE html>
 <html >
 <head>
@@ -51,33 +51,34 @@
 	</section>
 	<section class="login code" id="code">
 		<pre class="prettyprint lang-html">
-&lt;!-- Create a form --&gt;
-&lt;form method=&quot;POST&quot; id=&quot;secured&quot;&gt;
-&#x9;&lt;input type=&quot;email&quot; name=&quot;email&quot;&gt;
-&#x9;&lt;input type=&quot;password&quot; name=&quot;password&quot;&gt;
-        &lt;input type=&quot;hidden&quot; name=&quot;crsf-token&quot; value=&quot;adas35297fffksjzzFE&quot;&gt;
-        &lt;span class=&quot;honeyjs&gt;&lt;/span&gt;
-&#x9;&lt;button type=&quot;submit&quot;&gt; Submit &lt;/button&gt;
-&lt;/form&gt;
+&#x3C;!-- Create a form --&#x3E;
+&#x3C;form method=&#x22;POST&#x22; id=&#x22;secured&#x22;&#x3E;
+  &#x3C;input type=&#x22;email&#x22; name=&#x22;email&#x22;&#x3E;
+  &#x3C;input type=&#x22;password&#x22; name=&#x22;password&#x22;&#x3E;
+  &#x3C;input type=&#x22;hidden&#x22; name=&#x22;crsf-token&#x22; value=&#x22;adas35297fffksjzzFE&#x22;&#x3E;
+  &#x3C;!-- an optional placeholder for honeyjs to load components --&#x3E;
+  &#x3C;span class=&#x22;honeyjs&#x3E;&#x3C;/span&#x3E;
+  &#x3C;button type=&#x22;submit&#x22;&#x3E; Submit &#x3C;/button&#x3E;
+&#x3C;/form&#x3E;
 
-&lt;!-- Load reCaptcha API, jQuery and HoneyJS --&gt;
-&lt;script src=&quot;//www.google.com/recaptcha/api.js?render=explicit&quot;&gt;&lt;/script&gt;
-&lt;script src=&quot;honey.min.js&quot;&gt;&lt;/script&gt;
+&#x3C;!-- Load reCaptcha API, jQuery and HoneyJS --&#x3E;
+&#x3C;script src=&#x22;//www.google.com/recaptcha/api.js?render=explicit&#x22;&#x3E;&#x3C;/script&#x3E;
+&#x3C;script src=&#x22;//cdn.jsdelivr.net/honeyjs/1.1.0/honey.min.js&#x22;&#x3E;&#x3C;/script&#x3E;
 
-&lt;!-- Secure the form with reCaptcha --&gt;
-&lt;script type=&quot;text/javascript&quot;&gt;
-&#x9;honey(document.getElementById(&apos;secured&apos;)).captcha(&quot;reCaptchaSiteKey&quot;);
-&lt;/script&gt;
+&#x3C;!-- Secure the form with reCaptcha --&#x3E;
+&#x3C;script type=&#x22;text/javascript&#x22;&#x3E;
+  honey(document.getElementById(&#x27;secured&#x27;)).captcha(&#x22;reCaptchaSiteKey&#x22;);
+&#x3C;/script&#x3E;
 		</pre>
 	</section>
 	<section class="login">
 		<div><a href="./1.1.0"><button type="button" class="red">HEAD OVER TO DOCUMENT</button></a></div>
 	</section>
 
-	<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-	<script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
-	<script src="https://www.google.com/recaptcha/api.js?render=explicit"></script>
-	<script src="honey.min.js"></script>
+	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+	<script src="//google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+	<script src="//www.google.com/recaptcha/api.js?render=explicit"></script>
+	<script src="//cdn.jsdelivr.net/honeyjs/1.1.0/honey.min.js"></script>
 	<script src="steps.js"></script>
 	<script src="tasks.js"></script>
 	<script>
