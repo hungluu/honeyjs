@@ -1,9 +1,22 @@
 (function($){
+	function map(arr, fn){
+		if(arr.map){
+			arr.map(fn);
+		}
+		else{
+			for(var i = 0, l = arr.length; i < l; i++){
+				arr[i] = fn(arr[i]);
+			}
+		}
+
+		return arr;
+	};
+
 	function SAgent(e, classList){
 		e = $(e);
 		this.e = e;
 		this.s = e.find('.search').get(0);
-		this.list = e.find(classList.map(function(e){ return '.' + e; }).join(','));
+		this.list = e.find(map(classList, function(e){ return '.' + e; }).join(','));
 
 		var that = this;
 
