@@ -1,6 +1,6 @@
 {
   "name": "honeyjs",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "An open source Javascript HoneyPot library",
   "main": "honey.js",
   "directories": {
@@ -13,7 +13,7 @@
     "send-cov": "echo '!!SENDING TO COVERALLS ...' && grunt send-cov && rm -f -R coverage && echo '!!DONE'",
     "test": "npm run build-cov && npm run run-test && npm run report-cov",
     "build": "npm run build-cov && npm run run-test && npm run report-cov && npm run send-cov",
-    "build-doc": "jsdoc -c jsdoc.json && cp -a -f examples/. doc/ && cp -a -f doc/honeyjs/. doc/ && rm -R -f doc/honeyjs",
+    "build-doc": "rm -f -R doc && jsdoc -c jsdoc.json && cp -a -f examples/. doc/ && cp -a -f doc/honeyjs/. doc/ && rm -R -f doc/honeyjs && mv -f doc/1.1.* doc/1.1.0",
     "clean-doc": "rm -R -f doc"
   },
   "repository": {
@@ -58,6 +58,6 @@
     "jshint": "^2.8.0",
     "jshint-stylish": "^2.0.1",
     "mocha": "^2.3.3",
-    "namis": "^1.0.0"
+    "namis": "^1.0.3"
   }
 }
