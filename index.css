@@ -33,7 +33,7 @@ h1{
 /*
  * Styling the container for the login form.
  */
-section{
+div{
 	width:350px;
 	margin: 0 auto;
 }
@@ -144,7 +144,7 @@ input[type="checkbox"]:checked:after {
 	background: #fff;
 	word-wrap: break-word;
 }
-section pre.prettyprint{
+div pre.prettyprint{
 	border: 0;
 }
 span.fakebutton{

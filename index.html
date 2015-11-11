@@ -1,4 +1,3 @@
-<!-- @source //codepen.io/andornagy/pen/lKBHv  -->
 <!DOCTYPE html>
 <html >
 <head>
@@ -18,16 +17,17 @@
     <![endif]-->
 </head>
 <body>
+	<!-- @source //codepen.io/andornagy/pen/lKBHv  -->
 	<h1>DEMO HONEYJS</h1>
 
 	<!-- Login Container -->
-	<section>
+	<div>
 		<span class="fakebutton" onclick="btnclick(this)">View code</span>
-	</section>
-	<section class="login" id="main">
-		<form action="" method="get" id="secured">
+	</div>
+	<div class="login" id="main">
+		<form action="." method="get" id="secured">
 			<!-- The Username Field -->
-			<label for="username">Username
+			<label for="email">Username
 			<input type="email" name="email" id="email" />
 			</label>
 
@@ -48,8 +48,8 @@
 			<!-- The Login Button -->
 			<!--<input type="submit" value="Login" />-->
 		</form>
-	</section>
-	<section class="login code" id="code">
+	</div>
+	<div class="login code" id="code">
 		<pre class="prettyprint lang-html">
 &#x3C;!-- Create a form --&#x3E;
 &#x3C;form method=&#x22;POST&#x22; id=&#x22;secured&#x22;&#x3E;
@@ -70,10 +70,10 @@
   honey(document.getElementById(&#x27;secured&#x27;)).captcha(&#x22;reCaptchaSiteKey&#x22;);
 &#x3C;/script&#x3E;
 		</pre>
-	</section>
-	<section class="login">
-		<div><a href="./1.1.0"><button type="button" class="red">HEAD OVER TO DOCUMENT</button></a></div>
-	</section>
+	</div>
+	<div class="login">
+		<div><button type="button" class="red" onclick="location.href='https://zudd.github.io/honeyjs/1.1.0/'; return false;">HEAD OVER TO DOCUMENT</button></div>
+	</div>
 
 	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 	<script src="//google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
