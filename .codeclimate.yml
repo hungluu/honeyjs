@@ -4,7 +4,7 @@ engines:
   eslint:
     enabled: true
   fixme :
-  	enabled: true
+    enabled: true
 ratings:
    paths:
    - honey.js
