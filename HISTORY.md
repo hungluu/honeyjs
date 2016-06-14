@@ -12,7 +12,7 @@
  - Move to mocha
  - Minimize number of dependencies
 
-[1.0.5](//github.com/zudd/HoneyJS/releases/tag/1.0.5)
+[1.0.5](//github.com/dumday/HoneyJS/releases/tag/1.0.5)
  - Fix issue with $.captcha
  - Now HoneyJS will try to render components into a place if possible
 
@@ -20,7 +20,7 @@
  - Update syntax
  - Support reCaptcha
 
-[1.0.3](//github.com/zudd/HoneyJS/releases/tag/1.0.3)
+[1.0.3](//github.com/dumday/HoneyJS/releases/tag/1.0.3)
  - Support jquery
  - Fixed many issues
  - First stable version
