@@ -4,7 +4,7 @@
 [![Code Climate](https://codeclimate.com/github/dumday/HoneyJS/badges/gpa.svg)](//codeclimate.com/github/dumday/HoneyJS)
 [![Coverage Status](https://coveralls.io/repos/dumday/honeyjs/badge.svg?branch=master&service=github)](//coveralls.io/github/dumday/honeyjs?branch=master)
 
-An open source Javascript HoneyPot library, release under MIT license.
+An open source Javascript HoneyPot library, release under MIT license. **This is currently in active development**
 
 **Links :** [Github](//github.com/dumday/honeyjs) - [NPM](//npmjs.com/package/honeyjs) - [Document](https://dumday.github.io/honeyjs/1.1.0/) - **[Live Demo](https://dumday.github.io/honeyjs/)**
 
