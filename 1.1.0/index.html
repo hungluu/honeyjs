@@ -28,13 +28,6 @@
 </nav>
 
 <div id="main">
-    
-
-    
-
-
-
-    
 
 
 
@@ -44,16 +37,23 @@
 
 
 
-    
+
+
+
+
+
+
+
+
 
 
     <section class="readme">
-        <article><h1>HoneyJS</h1><p><a href="https://travis-ci.org/dumday/honeyjs"><img src="https://travis-ci.org/dumday/honeyjs.svg?branch=master" alt="Build Status"></a>
-<a href="//codeclimate.com/github/dumday/HoneyJS"><img src="https://codeclimate.com/github/dumday/HoneyJS/badges/gpa.svg" alt="Code Climate"></a>
-<a href="//coveralls.io/github/dumday/honeyjs?branch=master"><img src="https://coveralls.io/repos/dumday/honeyjs/badge.svg?branch=master&amp;service=github" alt="Coverage Status"></a></p>
+        <article><h1>HoneyJS</h1><p><a href="https://travis-ci.org/hungluu2106/honeyjs"><img src="https://travis-ci.org/hungluu2106/honeyjs.svg?branch=master" alt="Build Status"></a>
+<a href="//codeclimate.com/github/zudd/HoneyJS"><img src="https://codeclimate.com/github/zudd/HoneyJS/badges/gpa.svg" alt="Code Climate"></a>
+<a href="//coveralls.io/github/hungluu2106/honeyjs?branch=master"><img src="https://coveralls.io/repos/hungluu2106/honeyjs/badge.svg?branch=master&amp;service=github" alt="Coverage Status"></a></p>
 <p>An open source Javascript HoneyPot library, release under MIT license.</p>
-<p><strong>Links :</strong> <a href="//github.com/dumday/honeyjs">Github</a> - <a href="//npmjs.com/package/honeyjs">NPM</a> - <a href="https://dumday.github.io/honeyjs/1.1.0/">Document</a> - <strong><a href="https://dumday.github.io/honeyjs/">Live Demo</a></strong></p>
-<p><img src="https://dumday.github.io/honeyjs/favicon.png" alt="honeyjs image"></p>
+<p><strong>Links :</strong> <a href="//github.com/hungluu2106/honeyjs">Github</a> - <a href="//npmjs.com/package/honeyjs">NPM</a> - <a href="https://hungluu2106.github.io/honeyjs/1.1.0/">Document</a> - <strong><a href="https://hungluu2106.github.io/honeyjs/">Live Demo</a></strong></p>
+<p><img src="https://hungluu2106.github.io/honeyjs/favicon.png" alt="honeyjs image"></p>
 <p><strong>Version 1.1.x is here!</strong></p>
 <ul>
 <li>Remake API to be more simple and effective</li>
@@ -68,7 +68,7 @@
 <pre class="prettyprint source lang-bash"><code>npm install honeyjs
 
 // or using bower
-bower install honeyjs</code></pre><p><strong>Need help?</strong> Please leave your issues <a href="//github.com/dumday/honeyjs/issues">HERE</a></p>
+bower install honeyjs</code></pre><p><strong>Need help?</strong> Please leave your issues <a href="//github.com/hungluu2106/honeyjs/issues">HERE</a></p>
 <h2>Table of contents</h2><ol>
 <li><a href="#how-to-use">How to use</a></li>
 <li><a href="#configuration">Configuration</a></li>
@@ -85,7 +85,7 @@ honey(form);</code></pre><p>Or jQuery style</p>
 <pre class="prettyprint source lang-javascript"><code>$('#1').honey();
 
 // or
-honey('#1');</code></pre><p>Check <a href="https://dumday.github.io/honeyjs/1.1.0/module-honey.html">honey</a> and <a href="https://dumday.github.io/honeyjs/1.1.0/external-_jQuery.fn_.html#.honey">jQuery plugin</a> on or document for more information.</p>
+honey('#1');</code></pre><p>Check <a href="https://hungluu2106.github.io/honeyjs/1.1.0/module-honey.html">honey</a> and <a href="https://hungluu2106.github.io/honeyjs/1.1.0/external-_jQuery.fn_.html#.honey">jQuery plugin</a> on or document for more information.</p>
 <p>Automatically secure all your forms</p>
 <pre class="prettyprint source lang-javascript"><code>honey.all();</code></pre><h2><strong>Configuration</strong></h2><p>Global configurations</p>
 <pre class="prettyprint source lang-javascript"><code>honey.config({
@@ -94,8 +94,8 @@ honey('#1');</code></pre><p>Check <a href="https://dumday.github.io/honeyjs/1.1.
 });
 
 // retrive global options
-var captchaTheme = honey.config('theme');</code></pre><p>View our <a href="https://dumday.github.io/honeyjs/1.1.0/Options.html">document</a> for more information</p>
-<p>For individually config honeypot(s), you will need to get an instance of <a href="https://dumday.github.io/honeyjs/1.1.0/Pot.html">Pot</a> or <a href="https://dumday.github.io/honeyjs/1.1.0/Pots.html">Pots</a> to configure over these objects</p>
+var captchaTheme = honey.config('theme');</code></pre><p>View our <a href="https://hungluu2106.github.io/honeyjs/1.1.0/Options.html">document</a> for more information</p>
+<p>For individually config honeypot(s), you will need to get an instance of <a href="https://hungluu2106.github.io/honeyjs/1.1.0/Pot.html">Pot</a> or <a href="https://hungluu2106.github.io/honeyjs/1.1.0/Pots.html">Pots</a> to configure over these objects</p>
 <pre class="prettyprint source lang-javascript"><code>var pots = honey(forms);
 
 // set acceptable minimum amount of time for form completion
@@ -108,7 +108,7 @@ pots.name('empty');</code></pre><h2><strong>Google reCaptcha</strong></h2><p>Sin
 <pre class="prettyprint source lang-javascript"><code>honey(forms).captcha('your-site-key');
 
 // with jQuery
-$(forms).honey('your-site-key');</code></pre><p>Check out <a href="https://dumday.github.io/honeyjs/1.1.0/Pot.html#captcha">captcha</a> for more information</p>
+$(forms).honey('your-site-key');</code></pre><p>Check out <a href="https://hungluu2106.github.io/honeyjs/1.1.0/Pot.html#captcha">captcha</a> for more information</p>
 <p>Set an optional global reCaptcha <em>sitekey</em> for reusing</p>
 <pre class="prettyprint source lang-javascript"><code>honey.requireRecaptcha('your-site-key');
 
@@ -117,18 +117,18 @@ honey(form).captcha();</code></pre><p>Force all forms to use reCaptcha</p>
 <pre class="prettyprint source lang-javascript"><code>honey.forceRecaptcha('your-site-key');
 
 // reCaptcha will be acquired automatically without calling .captcha()
-honey(form);</code></pre><h2><strong>Changelog</strong></h2><p>Please view <a href="//github.com/dumday/honeyjs/blob/master/HISTORY.md">HISTORY.md</a> file</p>
-<h2><strong>Contributors</strong></h2><p>See <a href="//github.com/dumday/honeyjs/network">contributors</a></p>
+honey(form);</code></pre><h2><strong>Changelog</strong></h2><p>Please view <a href="//github.com/hungluu2106/honeyjs/blob/master/HISTORY.md">HISTORY.md</a> file</p>
+<h2><strong>Contributors</strong></h2><p>See <a href="//github.com/hungluu2106/honeyjs/network">contributors</a></p>
 <h2><strong>Contribution</strong></h2><p>Everyone is welcome :)</p>
 <p>Here is some steps :</p>
 <ol>
 <li>Make sure you have a <a href="//github.com">Github</a> account and have installed <a href="//npmjs.com">npm</a></li>
-<li>Fork this <a href="//github.com/dumday/honeyjs">repo</a>, then clone with <code>git@github.com:your-user-name/honeyjs.git</code></li>
+<li>Fork this <a href="//github.com/hungluu2106/honeyjs">repo</a>, then clone with <code>git@github.com:your-user-name/honeyjs.git</code></li>
 <li>Run <code>npm install</code> to install all dependencies</li>
 <li>Run <code>npm test</code> to be sure everything is working</li>
 <li>Make your changes ( optional write an additional test file if you'are adding somethings and the old test files cannot cover )</li>
 <li>Run <code>npm test</code> again to make sure everything is working, then check <code>coverage/lcov-report/index.html</code> to make sure coverage is above 95% ( This is a security library so we need everything to perform as intended )</li>
-<li>Push to your fork, create a <a href="//github.com/dumday/honeyjs/compare">pull request</a> and write a good commit message.</li>
+<li>Push to your fork, create a <a href="//github.com/hungluu2106/honeyjs/compare">pull request</a> and write a good commit message.</li>
 </ol>
 <hr>
 <p>This project is actively maintained. Please feel free to contact me if you need any further assistance.</p>
