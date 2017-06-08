@@ -11,7 +11,7 @@ function toggleCode(){
 (function($){
 	$(document).ready(function(){
 		// secure sign-in form
-		$("#secured").honey('6LcNnCITAAAAAAFWdWsnCNM_gx_LLSi9_Pi7g1-j');
+		$("#secured").honey('6LeyoyQUAAAAACc4glrm9Vl7dxT2Zi3HFHEPye0p');
 
 		var tut = new Steps();
 		tut.bindTo($("#button"));
