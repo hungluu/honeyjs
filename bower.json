@@ -3,7 +3,7 @@
   "description": "An open source Javascript HoneyPot library",
   "main": "honey.min.js",
   "authors": [
-    "dumday (Hung Luu)"
+    "hungluu2106 (Hung Luu)"
   ],
   "license": "MIT",
   "keywords": [
@@ -25,7 +25,7 @@
     "security"
   ],
   "moduleType": [],
-  "homepage": "https://dumday.github.io/honeyjs",
+  "homepage": "https://hungluu2106.github.io/honeyjs",
   "ignore": [
     "**/.*",
     "node_modules",
