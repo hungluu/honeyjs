@@ -4,8 +4,8 @@
 |--------------------------------------------------------------------------
 |
 | @version 1.1.0
-| @author dumday ( Hung Luu )
-| @url https://github.com/dumday/honeyjs
+| @author hungluu2106 ( Hung Luu )
+| @url https://github.com/hungluu2106/honeyjs
 | @license The MIT License (MIT)
 |
 | Copyright (c) 2015 Hung Luu
