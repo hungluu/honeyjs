@@ -3,7 +3,7 @@
 | An open source Javascript Honey Pot implementation
 |--------------------------------------------------------------------------
 |
-| @version 1.1.0
+| @version 1.1.4
 | @author hungluu2106 ( Hung Luu )
 | @url https://github.com/hungluu2106/honeyjs
 | @license The MIT License (MIT)
