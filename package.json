@@ -54,6 +54,7 @@
     "grunt-contrib-connect": "^0.11.2",
     "grunt-contrib-jshint": "^0.11.3",
     "grunt-coveralls": "^1.0.0",
+    "grunt-lib-phantomjs": "^1.1.0",
     "grunt-mip": "^1.0.8",
     "jshint": "^2.8.0",
     "jshint-stylish": "^2.0.1",
