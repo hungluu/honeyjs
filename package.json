@@ -18,7 +18,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hungluu2106/honeyjs.git"
+    "url": "git+https://github.com/hungluu/honeyjs.git"
   },
   "keywords": [
     "honeypot",
@@ -38,12 +38,12 @@
     "coverage",
     "security"
   ],
-  "author": "hungluu2106 (Hung Luu)",
+  "author": "hungluu (Hung Luu)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/hungluu2106/honeyjs/issues"
+    "url": "https://github.com/hungluu/honeyjs/issues"
   },
-  "homepage": "https://github.com/hungluu2106/honeyjs#readme",
+  "homepage": "https://github.com/hungluu/honeyjs#readme",
   "engines": {
     "node": ">=0.8"
   },
@@ -62,6 +62,7 @@
     "namis": "^1.0.3"
   },
   "dependencies": {
+    "eslint": "^5.5.0",
     "sinon": "^3.2.1"
   }
 }
