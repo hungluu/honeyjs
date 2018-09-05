@@ -3,19 +3,9 @@ var expect = chai.expect;
 function timeout(caller, fn, delay){
 	delay = delay || 500;
 
-	if (navigator.plugins.length === 0) {
-		var clock = sinon.useFakeTimers();
-
-		clock.tick(delay + 1000);
+	setTimeout(function(){
 		fn.call(caller);
-
-		clock.restore();
-	}
-	else{
-		setTimeout(function(){
-			fn.call(caller);
-		}, delay);
-	}
+	}, delay);
 }
 
 function normal_test(pot){
