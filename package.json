@@ -1,6 +1,6 @@
 {
   "name": "honeyjs",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "description": "An open source Javascript HoneyPot library",
   "main": "honey.js",
   "directories": {
@@ -18,7 +18,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hungluu2106/honeyjs.git"
+    "url": "git+https://github.com/hungluu/honeyjs.git"
   },
   "keywords": [
     "honeypot",
@@ -38,12 +38,12 @@
     "coverage",
     "security"
   ],
-  "author": "hungluu2106 (Hung Luu)",
+  "author": "hungluu (Hung Luu)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/hungluu2106/honeyjs/issues"
+    "url": "https://github.com/hungluu/honeyjs/issues"
   },
-  "homepage": "https://github.com/hungluu2106/honeyjs#readme",
+  "homepage": "https://github.com/hungluu/honeyjs#readme",
   "engines": {
     "node": ">=0.8"
   },
@@ -54,10 +54,12 @@
     "grunt-contrib-connect": "^0.11.2",
     "grunt-contrib-jshint": "^0.11.3",
     "grunt-coveralls": "^1.0.0",
+    "grunt-lib-phantomjs": "^1.1.0",
     "grunt-mip": "^1.0.8",
     "jshint": "^2.8.0",
     "jshint-stylish": "^2.0.1",
     "mocha": "^2.3.3",
-    "namis": "^1.0.3"
+    "namis": "^1.0.3",
+    "eslint": "^5.5.0"
   }
 }

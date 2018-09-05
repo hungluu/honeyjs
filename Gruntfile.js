@@ -6,7 +6,7 @@ module.exports = function(grunt) {
 				options: {
 					run: false,
 					urls: [
-						'http://localhost:8080/test/'
+						'http://localhost:8088/test/'
 					],
 					timeout: 50000,
 					reporter: 'Spec'
@@ -16,7 +16,7 @@ module.exports = function(grunt) {
 				options: {
 					run: false,
 					urls: [
-						'http://localhost:8080/test/min.html'
+						'http://localhost:8088/test/min.html'
 					],
 					timeout: 50000,
 					reporter: 'Dot'
@@ -26,7 +26,7 @@ module.exports = function(grunt) {
 		connect: {
 			ci: {
 				options: {
-					port: 8080,
+					port: 8088,
 					base: '.',
 				}
 			},
