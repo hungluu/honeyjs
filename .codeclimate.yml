@@ -12,3 +12,7 @@ exclude_paths:
 - "test/*"
 - "honey.min.js"
 - "Gruntfile.js"
+eslint:
+  enabled: true
+  config:
+    config: ./.eslintrc

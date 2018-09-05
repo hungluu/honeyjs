@@ -1,8 +1,8 @@
 # HoneyJS
 
 [![Build Status](https://travis-ci.org/hungluu/honeyjs.svg?branch=master)](https://travis-ci.org/hungluu/honeyjs)
-[![Code Climate](https://codeclimate.com/github/hungluu/HoneyJS/badges/gpa.svg)](//codeclimate.com/github/hungluu/HoneyJS)
-[![Coverage Status](https://coveralls.io/repos/hungluu/honeyjs/badge.svg?branch=master&service=github)](//coveralls.io/github/hungluu/honeyjs?branch=master)
+[![Maintainability](https://api.codeclimate.com/v1/badges/ab239510d40b4abcb110/maintainability)](https://codeclimate.com/github/hungluu/honeyjs/maintainability)
+[![Coverage Status](https://coveralls.io/repos/github/hungluu/honeyjs/badge.svg?branch=master)](https://coveralls.io/github/hungluu/honeyjs?branch=dev)
 
 An open source Javascript HoneyPot library, release under MIT license. **This is currently in active development**
 
